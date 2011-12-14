@@ -2,9 +2,9 @@
 
 $cfg = array(
         'page'=>array(
-            'title'=>"iMembr",
-            'shortkey'=>"iMembr",
-            'address'=>"www.imembr.ch",
+            'title'=>"workr",
+            'shortkey'=>"workr",
+            'address'=>"localhost/workr",
             'defaultlang'=>"de",
             'pagecount'=>"3",
             'pagesteps'=>12,
@@ -14,12 +14,12 @@ $cfg = array(
         ),
         'mysql'=>array(
             'host'=>"localhost",
-            'user'=>"cubetech",
-            'password'=>"cubedev$",
-            'db'=>"imembr",
+            'user'=>"workr",
+            'password'=>"workr$",
+            'db'=>"workr",
         ),
         'style'=>array(
-            'id'=>"imembr",
+            'id'=>"workr",
             'path'=>"_style",
             'expired'=>"darkviolet",
             'expiresoon'=>"darkred",
@@ -32,9 +32,6 @@ $cfg = array(
         ),
         'languages'=>array(
             'de',
-            'fr',
-            'it',
-            'en',
         ),
 );
 
