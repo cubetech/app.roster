@@ -4,6 +4,7 @@
     ini_set('error_log',dire.'_env/error.txt');
     ini_set('log_errors',true);
     setlocale(LC_TIME, "de_CH");
+    session_start();
 
     include(dire.'_env/class.session.php');
     include(dire.'_env/config.php');
@@ -14,7 +15,6 @@
     include(dire.'_env/func_error.php');
     include(dire.'_env/func_header.php');
     include(dire.'_env/func_image.php');
-    include(dire.'_env/func_lang.php');
     include(dire.'_env/func_message.php');
     include(dire.'_env/func_mysql.php');
     include(dire.'_env/func_profile.php');

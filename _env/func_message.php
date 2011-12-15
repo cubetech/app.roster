@@ -41,5 +41,36 @@
       write_footer();
       die();
     }
+    
+    function _message($message, $type = 'good') {
+    
+    	$_SESSION['message'] = $message;
+    	$_SESSION['message_type'] = $type;
+    	$_SESSION['message_show'] = true;
+    	
+    }
+    
+    function _message_get() {
+    
+    	global $tmp_style_path;
+    	
+    	$message = @$_SESSION['message'];
+    	$type = @$_SESSION['message_type'];
+    	$show = @$_SESSION['message_show'];
+    	
+    	if($show === true) {
+	    	$output = '
+	    	<div class="check_main">
+	    			
+	    		<div class="check">
+	    			<div class="'.$type.'"><img src="'.$tmp_style_path.'icons/check.gif" alt="check" class="icon">'.$message.'</div>
+	    		</div>
+	    	</div>
+	    	';
+	    	$_SESSION['message_show'] = false;
+	    	return $output;
+    	}
+    	
+	}
 
 ?>

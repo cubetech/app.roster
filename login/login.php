@@ -41,13 +41,8 @@
     
     auth_start();
 
-    write_header(translate('Login'));
-    
-    echo showBox('
-        '.translate('You\'re logged in').'.<br><br>
-        <a href="'.dire.'"><input type="button" value="'.translate('landing page').'"></a>
-    ');
-    
-    write_footer();
+	_message('Sie sind jetzt eingeloggt.');
+
+	header("Location: " . dire);
 
 ?>

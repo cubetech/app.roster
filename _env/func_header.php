@@ -11,9 +11,8 @@
     global $tmp_output_header, $sidebar;
     $cr           = "\r\n";
 
+    $less_title	= $title;
     $title      = $cfg['page']['title'].' &raquo; '.$title;
-    $_language  = translate('language');
-    $_lang      = getLanguage();
 
     ob_start();
 
@@ -21,43 +20,16 @@
     $login = 'login';
     $menu = '&nbsp;';
     $boxmenu = $sidebar;
+    $_message = _message_get();
     
     if(!authed(false)) {
-        $boxmenu = '
-            <form action="'.dire.'login/login.php" method="post">
-                Username:<br />
-                <input type="text" name="username" />
-                <br /><br />
-                Passwort:<br />
-                <input type="password" name="password" style="margin-top: 0px;" />
-                <br /><br />
-                <input type="submit" value="Anmelden" />
-            </form>
-        ';
+        $login_menu = '<a href="'.dire.'login/">Anmelden</a>';
     }
 
     if(authed()) {
         $query = mysql_query('SELECT * FROM `users` WHERE `uid` = "'.$tmp_session_user_id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
         $member = mysql_fetch_array($query);
-        $query = mysql_query('SELECT COUNT(*) FROM `members` WHERE `uid` = "'.$member['uid'].'" AND `draft` = "1"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
-        $draft = mysql_fetch_array($query);
-        $authed = translate('Welcome').', '.$member['username'];
-        $login = translate('logout');
-        $menu = '
-                    <ul>
-                        <li><a href="'.dire.'members/">'.translate('members').'</a></li>
-        ';
-        if($draft[0]>0) {
-            $drafttext = translate('draft');
-            if($draft[0]>1)
-                $drafttext = translate('drafts');
-            $menu .= '<li style="padding-left: 30px;"><small>- <b>'.$draft[0].'</b> '.$drafttext.'</small></li>
-            ';
-        }
-        $menu .= '
-                        <li><a href="'.dire.'ucp/">'.translate('your profile').'</a></li>
-                    </ul>
-                ';
+        $login_menu = 'Angemeldet als <strong>'.$member['username'] . '</strong> | <a href="'.dire.'login/logout.php">Abmelden</a>';
     }
 
     // check if there is a file of the style which should been included
@@ -91,11 +63,11 @@
     if(is_file($tmp_style_path.'_config/config_footer.php'))
       include($tmp_style_path.'_config/config_footer.php');
 
-    $login  = 'Du bist angemeldet. <a href="'.dire.'login/logout.php">' . translate('logout') . '</a>';
+    $login  = 'Du bist angemeldet. <a href="'.dire.'login/logout.php">Abmelden</a>';
 
     if(!authed()) {
         $login = '
-                <a href="'.dire.'login/">'.translate('login').'</a>
+                <a href="'.dire.'login/">Anmelden</a>
                 ';
     }
 
