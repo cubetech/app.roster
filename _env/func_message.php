@@ -42,7 +42,13 @@
       die();
     }
     
-    function _message($message, $type = 'good') {
+    function _message($message, $type = false) {
+    
+    	if($type == false) {
+    		$type = 'good';
+    	} else {
+    		$type = 'bad';
+    	}
     
     	$_SESSION['message'] = $message;
     	$_SESSION['message_type'] = $type;
@@ -59,11 +65,14 @@
     	$show = @$_SESSION['message_show'];
     	
     	if($show === true) {
+    		$icon = 'x';
+    		if($type == 'good')
+    			$icon = 'check';
 	    	$output = '
 	    	<div class="check_main">
 	    			
 	    		<div class="check">
-	    			<div class="'.$type.'"><img src="'.$tmp_style_path.'icons/check.gif" alt="check" class="icon">'.$message.'</div>
+	    			<div class="'.$type.'"><img src="'.$tmp_style_path.'icons/'.$icon.'.gif" alt="check" class="icon">'.$message.'</div>
 	    		</div>
 	    	</div>
 	    	';
