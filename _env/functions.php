@@ -86,7 +86,7 @@
           return htmlentities(${$str});
         }
       } elseif(isset($value[$str])) {
-      	return $value[$str]; 
+      	return htmlentities($value[$str]);
       }
     }
     return false;
