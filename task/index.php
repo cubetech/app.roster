@@ -34,6 +34,9 @@
 		  		if($i % 2 == 0)
 		  			$class = 'gray';
 		  			
+		  		if(strlen($t['company'])>0)
+		  			$t['company'] = $t['company'] . ' | ';
+		  			
 		  		print '
 						<tr class="'.$class.'">
 							<td><a href="'.dire.'task/detail/?id='.$t['id'].'">'.$t['id'].'</a></td>
