@@ -5,59 +5,67 @@
     
     $search = vGET('search');
     
-    $query = mysql_query('SELECT * FROM `members` WHERE MATCH(prename, name, address, location, mail, handy, phone, memberid) AGAINST ("'.$search.'")');
-    $result = array();
+    $tasks = array();
+    $query = mysql_query('SELECT * FROM `task` 	WHERE	`company` LIKE "%'.$search.'%" 
+    											OR 		`name` LIKE "%'.$search.'%"
+    											OR		`mobile` LIKE "%'.$search.'%"
+    											OR		`allpneu_task` LIKE "%'.$search.'%"
+    											OR		`comments` LIKE "%'.$search.'%"');
     while($fetch=mysql_fetch_array($query))
-        array_push($result, $fetch);
+    	array_push($tasks, $fetch);
+    	
+    $newtasks = array();
+    foreach($tasks as $t)
+    	$newtasks[] = str_replace($search, '<hl>'.$search.'</hl>', $t);
     
-    write_header('search');
+    $tasks = $newtasks;
+        
+	$tire = array();
+	$query = mysql_query('SELECT * FROM `tire`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+	while($fetch=mysql_fetch_array($query))
+		$tire[$fetch[0]] = $fetch[1];
+	
+	write_header('Suche nach "'.$search.'"');
     
-    echo '<table style="border: 1px solid #DDD; width: 100%;">';
-    if(count($result)<1)
-        echo '<tr><td><i>Keine Suchergebnisse f&uuml;r den Begriff "<b>'.$search.'</b>" gefunden.</i></td></tr>';
-    else {
-        echo '<tr><td colspan="5" class="center"><i>'.count($result).' Suchergebnisse f&uuml;r den Begriff "<b>'.$search.'</b>" gefunden:<br /><br /></td></tr>';
-        foreach($result as $d) {
-            echo '
-                <tr>
-                    <td class="bold">
-                        <a href="'.dire.'members/details/?id='.$d['id'].'">'.$d['name'].' '.$d['prename'].'</a>
-                    </td>
-                    <td class="normal">
-                        '.$d['location'].'
-                    </td>
-                    <td>
-                        <a href="'.dire.'members/edit/?id='.$d['id'].'"><img src="'.$tmp_style_path.'icons/comment_edit.png" alt="edit" title="Member bearbeiten" style="width: 12px;" /></a>
-                        <a href="'.dire.'members/delete/?id='.$d['id'].'"><img src="'.$tmp_style_path.'icons/delete.png" alt="delete" title="Member l&ouml;schen" style="width: 12px;" /></a>
-                    </td>
-                    ';
-            $query = mysql_query('SELECT cards.*, cardtemplate.name as name
-                                        FROM `cards`
-                                        LEFT JOIN `cardtemplate` ON cardtemplate.id=cards.tid 
-                                        WHERE `mid`="'.$d['id'].'"
-                                        AND `expire`>"'.time().'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
-            $cards = array();
-            while($fetch = mysql_fetch_array($query))
-                array_push($cards, $fetch);
-            if(count($cards)<1)
-                echo '<td class="normal" colspan="2"><small><i>Keine Karte zugewiesen</i></small></td>';
-            elseif(count($cards)==1) {
-                echo '
-                        <td class="normal">
-                            <small><a href="'.dire.'members/cards/?id='.$cards[0]['id'].'">'.$cards[0]['name'].' Card</a></small>
-                        </td>
-                        <td class="normal">
-                            <small>'.restTime($cards[0]['expire']-time()).'</small>
-                        </td>
-                    </tr>
-                ';
-            } else 
-                echo '<td class="normal" colspan="2">'.count($cards).' Karten zugewiesen</td>';
-        }
-    }
-    echo '</table>';
-    
-    //var_dump($result);
+	?>
+	
+		<table width="850" border="0" cellspacing="0" cellpadding="10" class="table_main">
+		  <tbody><tr style="background-color:#d9d8d8; font-size:14px;">
+			<td width="50"><strong>NR</strong></td>
+			<td width="250"><strong>KUNDE</strong></td>
+			<td width="150"><strong>TYP</strong></td>
+			<td width="150"><strong>TERMIN</strong></td>
+			<td width="200"><strong>AKTION</strong></td>
+		  </tr>
+		  
+		  <?php 
+		  
+		  	for($i=0;$i<count($tasks);$i++) {
+		  		$t = $tasks[$i];
+		  		$class = '';
+		  		if($i % 2 == 0)
+		  			$class = 'gray';
+		  			
+				if(strlen($t['company'])>0)
+					$t['company'] = $t['company'] . ' | ';
+					
+		  		print '
+						<tr class="'.$class.'">
+							<td><a href="'.dire.'task/detail/?id='.$t['id'].'&search='.$search.'">'.$t['id'].'</a></td>
+							<td><a href="'.dire.'task/detail/?id='.$t['id'].'&search='.$search.'">'.$t['company'].' '.$t['name'].'</a></td>
+							<td>'.$tire[$t['tire']].'</td>
+							<td>'.date('d.m.Y H:i', $t['duetime']).'</td>
+							<td><a href="#">BEARBEITEN </a>| <a href="#">ERLEDIGT </a></td>
+						</tr>
+		  		';
+		  		
+		  	}
+		  
+		  ?>
+
+		</tbody></table>
+		
+	<?php
     
     write_footer();
     
