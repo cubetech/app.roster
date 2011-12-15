@@ -5,7 +5,7 @@
 
 	$company		= vGET('company');
 	$name			= vGET('name');
-	$mobile			= vGET('mobile');
+	$mobile			= vGET('mobile', true, 'string');
 	$allpneu_task	= vGET('allpneu_task');
 	$tire			= vGET('tire'); //select
 	$location		= implode(',', vGET('location')); //checkbox
