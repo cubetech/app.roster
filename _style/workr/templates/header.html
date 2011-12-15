@@ -5,6 +5,7 @@
     <title>${title}</title>
     <link rel="stylesheet" type="text/css" href="%stylepath%css/style.css" />
     <link rel="stylesheet" type="text/css" href="%stylepath%css/jquery-ui-1.7.3.custom.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="%stylepath%css/jquery.ketchup.css" />
     <link rel="icon" href="%dire%favicon.ico" type="image/x-icon">
     <meta name="keywords" content="svn, hosting, repository, opensource, subversion, cubetech" />
     <meta name="description" content="iStock - Inventory Simpyfied" />
@@ -20,9 +21,30 @@
     <meta name="robots" content="index, follow" />
     
     <script type="text/javascript" src="%stylepath%js/ajaxupload.js"></script>
-    <script src="%stylepath%js/jquery.min.js" type="text/javascript"></script>
+    <script src="%stylepath%js/jquery-1.7.1.min.js" type="text/javascript"></script>
     <script src="%stylepath%js/jquery-ui-1.7.3.custom.min.js" type="text/javascript"></script>
     <script src="%stylepath%js/jquery.ui.datepicker-de-CH.js" type="text/javascript"></script>
+    <script src="%stylepath%js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+    <script src="%stylepath%js/jquery.ketchup.all.min.js" type="text/javascript"></script>
+    
+    <script>
+    	$.timepicker.regional['de'] = {
+    	  timeOnlyTitle: 'Uhrzeit auswählen',
+    	  timeText: 'Zeit',
+    	  hourText: 'Stunde',
+    	  minuteText: 'Minute',
+    	  secondText: 'Sekunde',
+    	  currentText: 'Jetzt',
+    	  closeText: 'Ausw&auml;hlen',
+    	  ampm: false
+    	};
+    	$.timepicker.setDefaults($.timepicker.regional['de']);
+    	$(function() {
+    		$( "#datetime" ).datetimepicker();
+    	});
+    	
+    </script>
+    
 
 </head>
 
@@ -68,3 +90,4 @@
 			<div class="in">			
 			
 				${_message}
+				
