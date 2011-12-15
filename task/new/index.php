@@ -13,11 +13,26 @@
 	while($fetch=mysql_fetch_array($query))
 		array_push($tire, $fetch);
 	
+	$tasklist = array();
+	$query = mysql_query('SELECT * FROM `tasklist`') or sql_error(__FILE__,__LINE__,__FUNCTION__);
+	while($fetch=mysql_fetch_array($query))
+		array_push($tasklist, $fetch);
+
+	$reserve = array();
+	$query = mysql_query('SELECT * FROM `reserve`') or sql_error(__FILE__,__LINE__,__FUNCTION__);
+	while($fetch=mysql_fetch_array($query))
+		array_push($reserve, $fetch);
+
+	$users = array();
+	$query = mysql_query('SELECT * FROM `users` WHERE `infouser` = "true"') or sql_error(__FILE__,__LINE__,__FUNCTION__);
+	while($fetch=mysql_fetch_array($query))
+		array_push($users, $fetch);
+
 	write_header('Neuer Auftrag erfassen');
 	
 	?>
 	
-		<form method="post" action="<?=dire?>task/save/">
+		<form id="form" method="post" action="<?=dire?>task/save/">
 			
 			<div class="formpoint">
 		
@@ -27,13 +42,13 @@
 			
 				<tr>
 					<td>Firma</td>
-					<td><input type="text" class="box3" name="company"></td>
+					<td><input type="text" class="box3" name="company" /></td>
 					<td>Name</td>
-					<td><input type="text" class="box3" name="name"></td>
+					<td><input type="text" class="box3" name="name" data-validate="validate(required, minlength(3))" /></td>
 				</tr>
 				<tr>
 					<td>Natel</td>
-					<td><input type="text" class="box3" name="mobile"></td>
+					<td><input type="text" class="box3" name="mobile" data-validate="validate(required, digits)"></td>
 					<td>Auftragsnr.<br>AllPneu</td>
 					<td><input type="text" class="box3" name="allpneu_task"></td>
 				</tr>
@@ -61,23 +76,28 @@
 					<td style="vertical-align: top;">Standort</td>
 					<td>
 						<?php 
-							foreach($location as $l)
-								print '<input type="checkbox" name="location" value="'.$l['id'].'"> '.$l['name'].'<br />';
+							for($i=0; $i<count($location); $i++) {
+								$l = $location[$i];
+								$validate = '';
+								if($i===0)
+									$validate = ' data-validate="validate(minselect(1))"';
+								print '<input type="checkbox" name="location[]" value="'.$l['id'].'"'.$validate.'> '.$l['name'].'<br />';
+							}
 						?>
 					</td>
 				</tr>
 				<tr>
 					<td style="vertical-align: top;">Auftrag</td>
 					<td>
-						<input type="checkbox" name="task" value=""> Montage<br />
-						<input type="checkbox"> Auswuchten<br />
-						<input type="checkbox"> Waschen<br />
-						<input type="checkbox"> Reparatur<br />
-						<input type="checkbox"> Spikes<br />
-						<input type="checkbox"> Reservieren<br />
-						<input type="checkbox"> Felgen Reparatur<br />
-						<input type="checkbox"> Swissfill Dichtung<br />
-						<input type="checkbox"> Swissfill F&uuml;llung<br />
+						<?php 
+							for($i=0; $i<count($tasklist); $i++) {
+								$t = $tasklist[$i];
+								$validate = '';
+								if($i===0)
+									$validate = ' data-validate="validate(minselect(1))"';
+								print '<input type="checkbox" name="task[]" value="'.$t['id'].'"'.$validate.'> '.$t['name'].'<br />';
+							}
+						?>
 					</td>
 				</tr>
 				
@@ -89,23 +109,19 @@
 			
 				<tr>
 					<td style="width: 160px;">Termin</td>
-					<td style="width: 120px;">
-						<input type="text" class="box4" name="duedate"><br />
-						<small>Beispiel: 08.11.2011</small>
-					</td>
 					<td>
-						<input type="text" class="box5" name="duetime"><br />
-						<small>Beispiel: 14:30</small>
+						<input type="text" class="box3" name="duedate" id="datetime" data-validate="validate(required)"><br />
+						<small>Beispiel: 08.11.2011 18:00</small>
+					</td>
 				</tr>
 				<tr>
 					<td style="vertical-align: top;">Reservieren</td>
 					<td colspan="2">
 						<select name="reserve" class="box3">
-							<option selected="selected">Reservationsgestell</option>
-							<option>Warenausgang</option>
-							<option>Box RS</option>
-							<option>Box HUM</option>
-							<option>Box DZ</option>
+							<?php 
+								foreach($reserve as $r)
+									print '<option value="'.$r['id'].'">'.$r['name'].'</option>';
+							?>
 						</select>									
 					</td>
 				</tr>
@@ -113,13 +129,10 @@
 					<td style="vertical-align: top;">Info an</td>
 					<td colspan="2">
 						<select name="infouser" class="box3">
-							<option selected="selected">info</option>
-							<option>OF</option>
-							<option>TD</option>
-							<option>PE</option>
-							<option>DZ</option>
-							<option>RS</option>
-							<option>HUM</option>
+							<?php 
+								foreach($users as $u)
+									print '<option value="'.$u['id'].'">'.$u['username'].'</option>';
+							?>
 						</select>									
 					</td>
 				</tr>
