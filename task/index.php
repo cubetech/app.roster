@@ -3,41 +3,51 @@
 	define('dire', '../');
 	include(dire . '_env/exec.php');
 	
+	$tasks = array();
+	$query = mysql_query('SELECT * FROM `task`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+	while($fetch=mysql_fetch_array($query))
+		array_push($tasks, $fetch);
+		
+	$tire = array();
+	$query = mysql_query('SELECT * FROM `tire`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+	while($fetch=mysql_fetch_array($query))
+		$tire[$fetch[0]] = $fetch[1];
+		
 	write_header('Auftr&auml;ge');
 	
 	?>
 	
 		<table width="850" border="0" cellspacing="0" cellpadding="10" class="table_main">
 		  <tbody><tr style="background-color:#d9d8d8; font-size:14px;">
-			<td width="179"><strong>USER</strong></td>
-			<td width="184"><strong>EMAIL</strong></td>
-			<td width="273"><strong>SOMETHING</strong></td>
-			<td width="132"><strong>DO IT</strong></td>
+			<td width="50"><strong>NR</strong></td>
+			<td width="250"><strong>KUNDE</strong></td>
+			<td width="150"><strong>TYP</strong></td>
+			<td width="150"><strong>TERMIN</strong></td>
+			<td width="200"><strong>AKTION</strong></td>
 		  </tr>
-		  <tr class="gray">
-			<td>Bruce Lee </td>
-			<td><a href="#">bruce@kungfu.com</a></td>
-			<td>Loriem ipsum dolor sit amet </td>
-			<td><a href="#">EDIT  </a><span class="v_line">| </span> <a href="#" class="delete">DELETE </a></td>
-		  </tr>
-		  <tr>
-			<td>Jackie Chan</td>
-			<td><a href="#">thechan@yahoo.com</a></td>
-			<td>Loriem ipsum dolor sit amet </td>
-			<td><a href="#">EDIT  </a><span class="v_line">| </span> <a href="#" class="delete">DELETE </a></td>
-		  </tr>
-		  <tr class="gray">
-			<td>John Claude Van Damme</td>
-			<td><a href="#">vandamme@gmail.com</a></td>
-			<td>Loriem ipsum dolor sit amet </td>
-			<td><a href="#">EDIT  </a><span class="v_line">| </span> <a href="#" class="delete">DELETE </a></td>
-		  </tr>
-		   <tr>
-			<td>Ben Johnson </td>
-			<td><a href="#">ben@kungu.com</a></td>
-			<td>Loriem ipsum dolor sit amet </td>
-			<td><a href="#">EDIT  </a><span class="v_line">| </span> <a href="#" class="delete">DELETE </a></td>
-		  </tr>
+		  
+		  <?php 
+		  
+		  	for($i=0;$i<count($tasks);$i++) {
+		  		$t = $tasks[$i];
+		  		$class = '';
+		  		if($i % 2 == 0)
+		  			$class = 'gray';
+		  			
+		  		print '
+						<tr class="'.$class.'">
+							<td><a href="'.dire.'task/detail/?id='.$t['id'].'">'.$t['id'].'</a></td>
+							<td><a href="'.dire.'task/detail/?id='.$t['id'].'">'.$t['company'].' '.$t['name'].'</a></td>
+							<td>'.$tire[$t['tire']].'</td>
+							<td>'.date('d.m.Y H:i', $t['duetime']).'</td>
+							<td><a href="#">BEARBEITEN </a>| <a href="#">ERLEDIGT </a></td>
+						</tr>
+		  		';
+		  		
+		  	}
+		  
+		  ?>
+
 		</tbody></table>
 		
 	<?php
