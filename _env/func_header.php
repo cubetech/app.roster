@@ -6,7 +6,7 @@
   // => the template will be stored in $tmp_output_header {~/_env/globals.php} till write_footer() is runned
 
 
-   function write_header($title='',$align='left',$menu=true,$bodypars='') {
+   function write_header($title='',$line='',$menu=true,$bodypars='') {
     global $cfg, $tmp_style_path, $tmp_session_user_id;
     global $tmp_output_header, $sidebar;
     $cr           = "\r\n";
