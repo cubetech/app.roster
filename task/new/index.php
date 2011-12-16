@@ -30,6 +30,8 @@
 
 	write_header('Neuer Auftrag erfassen');
 	
+	$_SESSION['complete'] = true;
+	
 	?>
 	
 		<form id="form" method="post" action="<?=dire?>task/save/">
@@ -42,13 +44,13 @@
 			
 				<tr>
 					<td>Firma</td>
-					<td><input type="text" class="box3" name="company" /></td>
+					<td><input type="text" class="box3" name="company" id="company"/></td>
 					<td>Name</td>
-					<td><input type="text" class="box3" name="name" data-validate="validate(required, minlength(3))" /></td>
+					<td><input type="text" class="box3" name="name" id="name" data-validate="validate(required, minlength(3))" /></td>
 				</tr>
 				<tr>
 					<td>Natel</td>
-					<td><input type="text" class="box3" name="mobile" data-validate="validate(required, digits)"></td>
+					<td><input type="text" class="box3" name="mobile" id="mobile" data-validate="validate(required, digits)"></td>
 					<td>Auftragsnr.<br>AllPneu</td>
 					<td><input type="text" class="box3" name="allpneu_task"></td>
 				</tr>

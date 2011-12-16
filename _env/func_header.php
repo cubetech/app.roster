@@ -19,6 +19,7 @@
     $authed = '&nbsp;';
     $login = 'login';
     $_message = _message_get();
+    $_complete = '';
     
     $uri = explode('/', $_SERVER["REQUEST_URI"]);
     if(in_array('task', $uri) && in_array('new', $uri)) {
@@ -29,6 +30,50 @@
     	$high = ' class="active"';
     }
     
+    if(@$_SESSION['complete']==true) {
+    	$query = mysql_query('SELECT * FROM `task`');
+    	$tasks = array();
+    	while($fetch=mysql_fetch_array($query))
+    		array_push($tasks, $fetch);
+    		
+    	$company = '';
+    	$name = '';
+    	$mobile = '';
+    		
+    	foreach($tasks as $t) {
+    		$company .= '
+    		"'.$t['company'].'",';
+    		$name .= '
+    		"'.$t['name'].'",';
+    		$mobile .= '
+    		"'.$t['mobile'].'",';
+    	}
+    	
+    	$_complete = '
+		<script>
+			
+			$(function() {
+				var company = ['.$company.'
+				    ];
+				var name = ['.$name.'
+				    ];
+				var mobile = ['.$mobile.'
+					];
+				$( "#company" ).autocomplete({
+					source: jQuery.unique(company)
+				});
+				$( "#name" ).autocomplete({
+					source: jQuery.unique(name)
+				});
+				$( "#mobile" ).autocomplete({
+					source: jQuery.unique(mobile)
+				});
+			});
+		</script>
+		';
+		@$_SESSION['complete'] = false;
+	}
+		    
     $menu = '
     <li><a href="'.dire.'"'.@$high.'>DASHBOARD</a></li>
     <li><a href="'.dire.'task/"'.@$high_task.'>AUFTR&Auml;GE</a></li>
