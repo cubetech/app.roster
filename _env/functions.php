@@ -20,7 +20,7 @@
   function sendMail($mail,$name,$subject,$message,$mail_type='text') {
     if($mail_type=='text') {
       $mail_to      = $name." <".$mail.">";
-      $mail_header    = "From:\"svnhost.ch\" <mailer@svnhost.ch>\n";
+      $mail_header    = "From:\"workr\" <workr@acki.be>\n";
       $mail_header   .= "Content-Type: text/plain";
 
       if(!mail($mail_to,$subject,$message,$mail_header))
