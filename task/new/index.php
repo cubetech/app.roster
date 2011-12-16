@@ -133,7 +133,7 @@
 						<select name="infouser" class="box3">
 							<?php 
 								foreach($users as $u)
-									print '<option value="'.$u['id'].'">'.$u['username'].'</option>';
+									print '<option value="'.$u['uid'].'">'.$u['username'].'</option>';
 							?>
 						</select>									
 					</td>
