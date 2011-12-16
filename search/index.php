@@ -16,7 +16,7 @@
     	
     $newtasks = array();
     foreach($tasks as $t)
-    	$newtasks[] = str_replace($search, '<hl>'.$search.'</hl>', $t);
+    	$newtasks[] = preg_replace('/('.$search.')/i', '<hl>$1</hl>', $t);
     
     $tasks = $newtasks;
         

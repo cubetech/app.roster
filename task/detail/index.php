@@ -10,7 +10,7 @@
 	$task = mysql_fetch_array($query);
 	
 	if(isset($search))
-		$task = str_replace($search, '<hl>'.$search.'</hl>', $task);
+	    $task = preg_replace('/('.$search.')/i', '<hl>$1</hl>', $task);
 
 	$tire = array();
 	$query = mysql_query('SELECT * FROM `tire`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
