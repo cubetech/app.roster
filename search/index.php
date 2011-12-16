@@ -6,7 +6,8 @@
     $search = vGET('search');
     
     $tasks = array();
-    $query = mysql_query('SELECT * FROM `task` 	WHERE	`company` LIKE "%'.$search.'%" 
+    $query = mysql_query('SELECT * FROM `task` 	WHERE	`status` = "1"
+    											AND		`company` LIKE "%'.$search.'%" 
     											OR 		`name` LIKE "%'.$search.'%"
     											OR		`mobile` LIKE "%'.$search.'%"
     											OR		`allpneu_task` LIKE "%'.$search.'%"
