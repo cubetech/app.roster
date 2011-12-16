@@ -9,7 +9,7 @@
 	$query = mysql_query('SELECT * FROM `task` WHERE `id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
 	$task = mysql_fetch_array($query);
 	
-	if(isset($search))
+	if(isset($search) && $search != '')
 	    $task = preg_replace('/('.$search.')/i', '<hl>$1</hl>', $task);
 
 	$tire = array();
@@ -27,10 +27,19 @@
 	while($fetch=mysql_fetch_array($query))
 		$tasklist[$fetch[0]] = $fetch[1];
 	
-	write_header('Details Auftrag '.$id);
+	$sidemsg = '<a href="'.dire.'task/close/?id='.$id.'&status=1">ER&Ouml;FFNEN</a>';
+	if($task['status']==1)
+		$sidemsg = '<a href="'.dire.'task/close/?id='.$id.'&status=2">ERLEDIGT</a>';
+		
+	$status = array();
+	$query = mysql_query('SELECT * FROM `status`');
+	while($fetch=mysql_fetch_array($query))
+		$status[$fetch['id']] = $fetch['name'];
+
+	write_header('Details Auftrag '.$id.' &raquo; Status: '.$status[$task['status']], '<a href="javascript:window.print();">DRUCKEN</a> | <a href="'.dire.'task/edit/?id='.$id.'">BEARBEITEN </a>| '.$sidemsg.' | <a href="'.dire.'task/close/?id='.$id.'&status=3">L&Ouml;SCHEN</a>');
 	
 	?>
-	
+		
 			<div class="formpoint">
 		
 			<h4>Kunde</h4>
@@ -82,7 +91,7 @@
 			</div><div class="formpoint">
 			
 			<h4>Auftragsinfo</h4>
-			
+
 			<table id="form" width="100%" style="border: 0;">
 			
 				<tr>
@@ -91,15 +100,29 @@
 				</tr>
 				<tr>
 					<td style="vertical-align: top;">Reservieren</td>
-					<td><h3><?=$task['reserve']?></h3></td>
+					<td><h3><?php
+						$reserve = array(); 
+						$query = mysql_query('SELECT * FROM `reserve`');
+						while($fetch=mysql_fetch_array($query))
+							$reserve[$fetch['id']] = $fetch['name'];
+							
+						print $reserve[$task['reserve']]
+						?></h3></td>
 				</tr>
 				<tr>
 					<td style="vertical-align: top;">Info an</td>
-					<td><h3><?=$task['infouser']?></h3></td>
+					<td><h3><?php
+						$users = array(); 
+						$query = mysql_query('SELECT * FROM `users`');
+						while($fetch=mysql_fetch_array($query))
+							$users[$fetch['uid']] = $fetch['prename'] . ' ' . $fetch['name'];
+							
+						print $users[$task['infouser']]
+						?></h3></td>
 				</tr>
 				<tr>
 					<td style="vertical-align: top;">Bemerkungen</td>
-					<td><h3><?=$task['comments']?></h3></td>
+					<td><h3><?=nl2br($task['comments'])?></h3></td>
 				</tr>
 				
 			</table>
