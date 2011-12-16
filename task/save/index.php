@@ -3,6 +3,7 @@
 	define('dire', '../../');
 	include(dire . '_env/exec.php');
 
+	$id 			= vGET('id');
 	$company		= vGET('company');
 	$name			= vGET('name');
 	$mobile			= vGET('mobile', true, 'string');
@@ -28,33 +29,53 @@
 	if($isint == false) {
 		_message('<strong>Warnung:</strong> Das Datum ist ung&uuml;ltig oder liegt in der Vergangenheit!<br />Der Auftrag wurde gespeichert.');
 	}
+	
+	if(!isset($id) || $id == '' || $id < 1) {
 
-	$query 			= mysql_query('INSERT INTO `task` (
-														company,
-														name,
-														mobile,
-														allpneu_task,
-														tire,
-														location,
-														task,
-														duetime,
-														reserve,
-														infouser,
-														comments
-														)	
-														VALUES (
-																	"'.$company.'",
-																	"'.$name.'",
-																	"'.$mobile.'",
-																	"'.$allpneu_task.'",
-																	"'.$tire.'",
-																	"'.$location.'",
-																	"'.$task.'",
-																	"'.$time.'",
-																	"'.$reserve.'",
-																	"'.$infouser.'",
-																	"'.$comments.'"
-																)') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+		$query 		= mysql_query('INSERT INTO `task` (
+															company,
+															name,
+															mobile,
+															allpneu_task,
+															tire,
+															location,
+															task,
+															duetime,
+															reserve,
+															infouser,
+															comments
+															)	
+															VALUES (
+																		"'.$company.'",
+																		"'.$name.'",
+																		"'.$mobile.'",
+																		"'.$allpneu_task.'",
+																		"'.$tire.'",
+																		"'.$location.'",
+																		"'.$task.'",
+																		"'.(int)$time.'",
+																		"'.$reserve.'",
+																		"'.$infouser.'",
+																		"'.$comments.'"
+																	)') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+																	
+	} else {
+	
+		$query		= mysql_query('UPDATE `task` SET
+															company = "'.$company.'",
+															name = "'.$name.'",
+															mobile = "'.$mobile.'",
+															allpneu_task = "'.$allpneu_task.'",
+															tire = "'.$tire.'",
+															location = "'.$location.'",
+															task = "'.$task.'",
+															duetime = "'.(int)$time.'",
+															reserve = "'.$reserve.'",
+															infouser = "'.$infouser.'",
+															comments = "'.$comments.'"
+												 WHERE		`id` = "'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+	
+	}
 																
 	if($isint != false) { _message('Der Auftrag wurde erfolgreich gespeichert!'); };
 	
