@@ -24,8 +24,10 @@
     $uri = explode('/', $_SERVER["REQUEST_URI"]);
     if(in_array('task', $uri) && in_array('new', $uri)) {
     	$high_new = ' class="active"';
-    } elseif(in_array('task', $uri) || in_array('search', $uri)) {
+    } elseif(in_array('task', $uri) && !in_array('?status=2', $uri)) {
     	$high_task = ' class="active"';
+    } elseif(in_array('search', $uri)) {
+    	$high = '';
     } else {
     	$high = ' class="active"';
     }
@@ -75,8 +77,8 @@
 	}
 		    
     $menu = '
-    <li><a href="'.dire.'"'.@$high.'>DASHBOARD</a></li>
-    <li><a href="'.dire.'task/"'.@$high_task.'>AUFTR&Auml;GE</a></li>
+    <li><a href="'.dire.'task/"'.@$high_task.'>OFFENE AUFTR&Auml;GE</a></li>
+    <li><a href="'.dire.'task/?status=2"'.@$high.'>ERLEDIGTE AUFTR&Auml;GE</a></li>
     <li><a href="'.dire.'task/new/"'.@$high_new.'>NEUER AUFTRAG ERFASSEN</a></li>
     ';
     
