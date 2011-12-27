@@ -34,9 +34,9 @@ h4{
 
 .forms{line-height:2em; }
 
-a:link, a:visited{color:#30a4b1; text-decoration:none;}
+a:link, a:visited{color:#0b589a; text-decoration:none;}
 
-a:hover{color:#f7941d;}
+a:hover{color:#d01e22;}
 
 .v_line{padding:0 5px; color:#999999;}
 
@@ -58,7 +58,11 @@ hl {
 
 /*.............................................................Header.................... */
 
-.logo{float:left; margin:25px 0;}
+.logo{
+	float:left;
+	margin:25px 0;
+	background-image: url(images/logo.png);
+}
 
 .txt_right{ float:right; margin-top:15px;}
 
@@ -78,7 +82,7 @@ hl {
 
 .box5{border:1px solid #bab9b9; padding:10px; width:60px; color:#707070; font-size:14px; }
 
-.com_btn{margin:0px; padding:10px 20px; border:0px; background-color:#f7941d; color:#fff; font-size:14px; }
+.com_btn{margin:0px; padding:10px 20px; border:0px; background-color:#d01e22; color:#fff; font-size:14px; }
 
 .formpoint{
 	padding-bottom: 18px;
@@ -107,7 +111,7 @@ hl {
 
 .navigation li a{float:left; color:#fff; margin: 0; font-size: 14px; text-decoration: none; padding:20px 30px;  }
 
-.navigation li a:hover, .navigation li .active { color:#FFFFFF; background-color:#30a4b1; }
+.navigation li a:hover, .navigation li .active { color:#FFFFFF; background-color:#0b589a; }
 
 .clear{clear:both;}
 
@@ -119,7 +123,7 @@ hl {
 
 .search_box{ padding:6px; color:#999999; font-size:13px; margin:0; background-color:#FFFFFF; border:1px solid #ccc;}
 
-.search_btn{margin:0 0 0 5px; padding:6px; border:0px; background-color:#f7941d; color:#fff; height:30px; font-size:13px; }
+.search_btn{margin:0 0 0 5px; padding:6px; border:0px; background-color:#d01e22; color:#fff; height:30px; font-size:13px; }
 
 
 
