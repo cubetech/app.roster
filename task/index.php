@@ -4,16 +4,37 @@
 	include(dire . '_env/exec.php');
 	
 	$status = vGET('status');
+	$direction = vGET('direction');
+	$order = vGET('order');
+	$order2 = vGET('order2');
+	$outorder = '';
+	
+	if(!$direction || $direction == '' || $direction != 'DESC') {
+		$direction = 'ASC';
+		$redirection = 'DESC';
+	} elseif($direction == 'DESC') {
+		$redirection = 'ASC';
+	}
+	
+	if(!$order || $order == '') {
+		$order = 'duetime';
+	} elseif(isset($order2) && $order2 != '') {
+		$outorder = ', LOWER('.$order2.') '.$direction;
+	} else {
+		$outorder = '';
+	}
 	
 	if(!$status || $status == '')
 		$status = 1;
 		
-	$sidemsg = '<a href="./?status=1">OFFENE AUFTR&Auml;GE</a>';
+	$sidemsg = 'Erledigte Auftr&auml;ge';
 	if($status==1)
-		$sidemsg = '<a href="./?status=2">ABGESCHLOSSENE AUFTR&Auml;GE</a>';
+		$sidemsg = 'Offene Auftr&auml;ge';
+	elseif($status==3)
+		$sidemsg = 'Gel&ouml;schte Auftr&auml;ge';
 	
 	$tasks = array();
-	$query = mysql_query('SELECT * FROM `task` WHERE `status`="'.$status.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+	$query = mysql_query('SELECT * FROM `task` WHERE `status`="'.$status.'" ORDER BY LOWER('.$order.') '.$direction.$outorder) or sqlError(__FILE__,__LINE__,__FUNCTION__);
 	while($fetch=mysql_fetch_array($query))
 		array_push($tasks, $fetch);
 		
@@ -22,16 +43,16 @@
 	while($fetch=mysql_fetch_array($query))
 		$tire[$fetch[0]] = $fetch[1];
 		
-	write_header('Auftr&auml;ge', $sidemsg);
+	write_header($sidemsg);
 	
 	?>
-	<br />
+
 		<table width="850" border="0" cellspacing="0" cellpadding="10" class="table_main">
 		  <tbody><tr style="background-color:#d9d8d8; font-size:14px;">
-			<td width="40"><strong>NR</strong></td>
-			<td width="330"><strong>KUNDE</strong></td>
-			<td width="80"><strong>TYP</strong></td>
-			<td width="150"><strong>TERMIN</strong></td>
+			<td width="40"><strong><a href="./?order=id&direction=<?=$redirection?>&status=<?=$status?>">NR <img src="<?=$tmp_style_path?>icons/sort.gif" /></a></strong></td>
+			<td width="330"><strong><a href="./?order=company&order2=name&direction=<?=$redirection?>&status=<?=$status?>">KUNDE <img src="<?=$tmp_style_path?>icons/sort.gif" /></a></strong></strong></td>
+			<td width="80"><strong><a href="./?order=tire&direction=<?=$redirection?>&status=<?=$status?>">TYP <img src="<?=$tmp_style_path?>icons/sort.gif" /></a></strong></strong></td>
+			<td width="150"><strong><a href="./?order=duetime&direction=<?=$redirection?>&status=<?=$status?>">TERMIN <img src="<?=$tmp_style_path?>icons/sort.gif" /></a></strong></strong></td>
 			<td width="200"><strong>AKTION</strong></td>
 		  </tr>
 		  
@@ -50,14 +71,18 @@
 		  			$statuschange = '<a href="'.dire.'task/close/?id='.$t['id'].'&status=2">ERLEDIGT</a>';
 		  		} else {
 		  			$statuschange = '<a href="'.dire.'task/close/?id='.$t['id'].'&status=1">ER&Ouml;FFNEN</a>';
-		  		} 
+		  		}
+		  		$timeclass = '';
+		  		if($t['duetime'] < time() && $status==1) {
+		  			$timeclass = ' class="overtime"';
+		  		}
 		  			
 		  		print '
 						<tr class="'.$class.'">
 							<td><a href="'.dire.'task/detail/?id='.$t['id'].'">'.$t['id'].'</a></td>
 							<td><a href="'.dire.'task/detail/?id='.$t['id'].'">'.$t['company'].' '.$t['name'].'</a></td>
 							<td>'.$tire[$t['tire']].'</td>
-							<td>'.date('d.m.Y H:i', $t['duetime']).'</td>
+							<td'.$timeclass.'>'.date('d.m.Y H:i', $t['duetime']).'</td>
 							<td><a href="'.dire.'task/edit/?id='.$t['id'].'">BEARBEITEN </a>| '.$statuschange.'</td>
 						</tr>
 		  		';
