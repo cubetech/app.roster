@@ -32,9 +32,9 @@
 	
 		<table width="850" border="0" cellspacing="0" cellpadding="10" class="table_main">
 		  <tbody><tr style="background-color:#d9d8d8; font-size:14px;">
-			<td width="50"><strong>NR</strong></td>
-			<td width="250"><strong>KUNDE</strong></td>
-			<td width="150"><strong>TYP</strong></td>
+			<td width="40"><strong>NR</strong></td>
+			<td width="330"><strong>KUNDE</strong></td>
+			<td width="80"><strong>TYP</strong></td>
 			<td width="150"><strong>TERMIN</strong></td>
 			<td width="200"><strong>AKTION</strong></td>
 		  </tr>
