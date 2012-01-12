@@ -24,7 +24,7 @@
     			ob_end_clean();
     		}
         write_header('Fehler');
-      echo showBox($output.'<br /><br /><a href="'.$btntarget.'"><input type="button" value="'.$btnstr.'" onClick="location=\''.$btntarget.'\'; return false;"></a>');
+      echo $output.'<br /><br /><a href="'.$btntarget.'"><input type="button" value="'.$btnstr.'" onClick="location=\''.$btntarget.'\'; return false;"></a>';
       write_footer();
       die();
     }
@@ -37,7 +37,7 @@
 				ob_end_clean();
 			}
 	    write_header('Frage');
-      echo showBox($output.'<br /><br /><a href="'.$notarget.'"><input type="button" value="&laquo; '.$nostr.'" onClick="location=\''.$notarget.'\'; return false;"></a>&nbsp;<a href="'.$yestarget.'"><input type="button" value="'.$yesstr.' &raquo;" onClick="location=\''.$yestarget.'\'; return false;"></a>');
+      echo $output.'<br /><br /><a href="'.$notarget.'"><input type="button" value="&laquo; '.$nostr.'" onClick="location=\''.$notarget.'\'; return false;"></a>&nbsp;<a href="'.$yestarget.'"><input type="button" value="'.$yesstr.' &raquo;" onClick="location=\''.$yestarget.'\'; return false;"></a>';
       write_footer();
       die();
     }
