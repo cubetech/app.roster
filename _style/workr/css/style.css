@@ -2,7 +2,7 @@
 
 body{text-align:center; margin:0; padding:0; font-family:Lucida Grande, Arial; font-size:14px; background-color:#ebebeb; color:#464646; }
 
-.wrapper{margin:0 auto; width:900px;
+.wrapper{margin:0 auto; width:1000px;
 }
 	
 .content{background-color:#FFFFFF; border:1px solid #bab9b9; text-align:center; padding-bottom:25px;}
@@ -10,7 +10,6 @@ body{text-align:center; margin:0; padding:0; font-family:Lucida Grande, Arial; f
 .in{width:850px; margin:25px auto; text-align:left;}
 
 .line{border-top:1px solid #bab9b9; height:1px; text-align: right; padding-top: 10px; padding-right: 10px; }
-
 
 
 /*.............................................................General.................... */
@@ -53,6 +52,10 @@ li {
 
 hl {
 	background-color: #fdd5a1;
+}
+
+image {
+	border: 0;
 }
 
 
@@ -103,7 +106,7 @@ hl {
 /*..................................................... Navigation .....................*/	
 	
 
-.navigation{ background-color:#464646; float: left; margin-bottom:20px; width:900px; position:relative;}
+.navigation{ background-color:#464646; float: left; margin-bottom:20px; width:1000px; position:relative;}
 
 .navigation ul{ margin:0px; padding:0px; }
 
