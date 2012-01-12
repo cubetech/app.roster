@@ -10,15 +10,9 @@
     include(dire.'_env/config.php');
     include(dire.'_env/functions.php');
     include(dire.'_env/func_auth.php');
-    include(dire.'_env/func_box.php');
-    include(dire.'_env/func_domain.php');
-    include(dire.'_env/func_error.php');
     include(dire.'_env/func_header.php');
-    include(dire.'_env/func_image.php');
     include(dire.'_env/func_message.php');
     include(dire.'_env/func_mysql.php');
-    include(dire.'_env/func_profile.php');
-    include(dire.'_env/func_server.php');
     include(dire.'_env/func_user.php');
 
     mdb_connect();

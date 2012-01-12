@@ -1,22 +1,5 @@
 <?
   
-  function fileCheck($fileName) {
-    global $cfg;
-    $end = $cfg['file'];
-    $tmparray = explode(',',$end['type']);
-    for($i=0;$i<count($tmparray);$i++) {
-        $e = $end[$tmparray[$i]];
-        $tmp = explode(',',$e);
-        foreach($tmp as $t) {
-            $file = explode('.',$fileName);
-            $file = $file[(count($file)-1)];
-            if($file == $t)
-                $output = $tmparray[$i];
-            }
-        }
-        return $output;
-    }
-  
   function sendMail($mail,$name,$subject,$message,$mail_type='text') {
     if($mail_type=='text') {
       $mail_to      = $name." <".$mail.">";
@@ -134,18 +117,4 @@
       return round($size / pow(1024, ($i = floor(log($size, 1024)))), $round) . ' ' . $si[$i];
     }
     
-    function restTime($time,$text=' verbleiben') {
-        global $cfg;
-        if(($time/31536000)>=1)
-            return bcdiv($time, 31536000, 0) . ' Jahre'.$text;
-        elseif(($time/2630520)>=1)
-            return bcdiv($time, 2630520, 0) . ' Monate'.$text;
-        elseif(($time/86400)>=1)
-            return '<font color="'.$cfg['style']['expiresoon'].'">'.bcdiv($time, 86400, 0) . ' Tage'.$text.'</font>';
-        elseif($time>1)
-            return '<font color="'.$cfg['style']['expire'].'">l&auml;uft heute ab</font>';
-        else
-            return '<font color="'.$cfg['style']['expired'].'">ist abgelaufen</font>';
-    }
-
 ?>

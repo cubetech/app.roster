@@ -1,5 +1,6 @@
 <?
-  function user_username_by_uid($uid) {
+
+  function userName($uid) {
     global $cfg_page_shortkey;
     if(!$uid)
       return false;
@@ -21,7 +22,4 @@
     return $fetch[0];
   }
 
-  function userName($uid) {
-   return user_username_by_uid($uid);
-  }
 ?>
