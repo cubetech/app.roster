@@ -1,13 +1,14 @@
 <?
   
   function sendMail($mail,$name,$subject,$message,$mail_type='text') {
+  	global $cfg;
     if($mail_type=='text') {
       $mail_to      = $name." <".$mail.">";
-      $mail_header    = "From:\"Pneu Fahrni Auftragstool\" <info@pneufahrni.ch>\n";
+      $mail_header    = "From:\"".$cfg['mail']['from']."\" <".$cfg['mail']['fromaddress'].">\n";
       $mail_header   .= "Content-Type: text/plain";
     } elseif($mail_type=='html') {
       $mail_to      = $name." <".$mail.">";
-      $mail_header    = "From:\"Pneu Fahrni Auftragstool\" <info@pneufahrni.ch>\n";
+      $mail_header    = "From:\"".$cfg['mail']['from']."\" <".$cfg['mail']['fromaddress'].">\n";
       $mail_header   .= "Content-Type: text/html";
     }
 

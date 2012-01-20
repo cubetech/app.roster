@@ -23,6 +23,10 @@ $cfg = array(
             'utimeout'=>60*60,
             'cookietimeout'=>60*60*24*30,
         ),
+        'mail'=>array(
+        	'from'=>"workr",
+        	'fromaddress'=>"info@workr.ch",
+        ),
 );
 
 ?>
