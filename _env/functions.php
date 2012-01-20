@@ -6,14 +6,14 @@
       $mail_to      = $name." <".$mail.">";
       $mail_header    = "From:\"".$cfg['mail']['from']."\" <".$cfg['mail']['fromaddress'].">\r\n
       					 Reply-To: ".$cfg['mail']['fromaddress']."\r\n
-      					 X-Mailer: PHP/" . phpversion();
-      $mail_header   .= "Content-Type: text/plain";
+      					 X-Mailer: PHP/" . phpversion()."\r\n";
+      $mail_header   .= "Content-Type: text/plain\r\n";
     } elseif($mail_type=='html') {
       $mail_to      = $name." <".$mail.">";
       $mail_header    = "From:\"".$cfg['mail']['from']."\" <".$cfg['mail']['fromaddress'].">\r\n
       					 Reply-To: ".$cfg['mail']['fromaddress']."\r\n
-      					 X-Mailer: PHP/" . phpversion();
-      $mail_header   .= "Content-Type: text/html";
+      					 X-Mailer: PHP/" . phpversion()."\r\n";
+      $mail_header   .= "Content-Type: text/html\r\n";
     }
 
       if(!mail($mail_to,$subject,$message,$mail_header))
