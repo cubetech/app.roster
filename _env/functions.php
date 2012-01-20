@@ -13,13 +13,12 @@
 			$mail_to    = $name." <".$mail.">";
 			$header     = 'MIME-Version: 1.0' . "\r\n" .
 			              'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
-			              'Content-Transfer-Encoding: quoted-printable' . "\r\n" .
 			              'From: ' . $cfg['mail']['from'] . ' <' . $cfg['mail']['fromaddress'] . '>' . "\r\n" .
 			              'Reply-To: ' . $cfg['mail']['from'] . ' <' . $cfg['mail']['fromaddress'] . '>' . "\r\n" .
 			              'X-Mailer: PHP/' . phpversion();
 		}
 
-		if(!mail($mail_to,$subject,$message,$header,'-f '.$cfg['mail']['fromaddress']))
+		if(!mail($mail_to,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$header,'-f '.$cfg['mail']['fromaddress']))
 			error('transfer');
 			
 	}
