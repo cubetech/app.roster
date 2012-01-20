@@ -13,6 +13,7 @@
 			$mail_to    = $name." <".$mail.">";
 			$header     = 'MIME-Version: 1.0' . "\r\n" .
 			              'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
+			              'Content-Transfer-Encoding: quoted-printable' . "\r\n" .
 			              'From: ' . $cfg['mail']['from'] . ' <' . $cfg['mail']['fromaddress'] . '>' . "\r\n" .
 			              'Reply-To: ' . $cfg['mail']['from'] . ' <' . $cfg['mail']['fromaddress'] . '>' . "\r\n" .
 			              'X-Mailer: PHP/' . phpversion();
