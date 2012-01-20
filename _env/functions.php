@@ -13,8 +13,9 @@
 						  ';
 		} elseif($mail_type=='html') {
 			$mail_to    = $name." <".$mail.">";
-			$header 	= 'From: '.$cfg['mail']['from'].' <'.$cfg['mail']['fromaddress'].'>\n
-      					   Content-Type: text/html\n
+			$header 	= 'MIME-Version: 1.0\n
+						   From: '.$cfg['mail']['from'].' <'.$cfg['mail']['fromaddress'].'>\n
+      					   Content-Type: multipart/mixed\n
       					   Content-Transfer-Encoding: 8bit\n';
 		}
 
