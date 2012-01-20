@@ -6,18 +6,16 @@
 		
 		if($mail_type=='text') {
 			$mail_to    = $name." <".$mail.">";
-			$header 	= 'From: '.$cfg['mail']['from'].' <'.$cfg['mail']['fromaddress'].'>\n
-						   Reply-To: '.$cfg['mail']['fromaddress'].'\n
-						   X-Mailer: PHP/'.phpversion().'\n
-						   Content-Type: text/html\n
-						  ';
+			$header     = 'From: ' . $cfg['mail']['from'] . ' <' . $cfg['mail']['fromaddress'] . '>' . "\r\n" .
+			              'Reply-To: ' . $cfg['mail']['from'] . ' <' . $cfg['mail']['fromaddress'] . '>' . "\r\n" .
+			              'X-Mailer: PHP/' . phpversion();
 		} elseif($mail_type=='html') {
 			$mail_to    = $name." <".$mail.">";
-			$header 	= 'From: '.$cfg['mail']['from'].' <'.$cfg['mail']['fromaddress'].'>
-						   Reply-To: '.$cfg['mail']['from'].' <'.$cfg['mail']['fromaddress'].'>
-      					   Content-Type: text-html
-      					   Content-Transfer-Encoding: 8bit
-      					   MIME-Version: 1.0';
+			$header     = 'MIME-Version: 1.0' . "\r\n" .
+			              'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
+			              'From: ' . $cfg['mail']['from'] . ' <' . $cfg['mail']['fromaddress'] . '>' . "\r\n" .
+			              'Reply-To: ' . $cfg['mail']['from'] . ' <' . $cfg['mail']['fromaddress'] . '>' . "\r\n" .
+			              'X-Mailer: PHP/' . phpversion();
 		}
 
 		if(!mail($mail_to,$subject,$message,$header,'-f '.$cfg['mail']['fromaddress']))
