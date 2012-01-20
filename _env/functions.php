@@ -3,8 +3,13 @@
   function sendMail($mail,$name,$subject,$message,$mail_type='text') {
     if($mail_type=='text') {
       $mail_to      = $name." <".$mail.">";
-      $mail_header    = "From:\"workr\" <workr@acki.be>\n";
+      $mail_header    = "From:\"Pneu Fahrni Auftragstool\" <info@pneufahrni.ch>\n";
       $mail_header   .= "Content-Type: text/plain";
+    } elseif($mail_type=='html') {
+      $mail_to      = $name." <".$mail.">";
+      $mail_header    = "From:\"Pneu Fahrni Auftragstool\" <info@pneufahrni.ch>\n";
+      $mail_header   .= "Content-Type: text/html";
+    }
 
       if(!mail($mail_to,$subject,$message,$mail_header))
         error('transfer');
