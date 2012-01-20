@@ -4,17 +4,20 @@
   	global $cfg;
     if($mail_type=='text') {
       $mail_to      = $name." <".$mail.">";
-      $mail_header    = "From:\"".$cfg['mail']['from']."\" <".$cfg['mail']['fromaddress'].">\n";
+      $mail_header    = "From:\"".$cfg['mail']['from']."\" <".$cfg['mail']['fromaddress'].">\r\n
+      					 Reply-To: ".$cfg['mail']['fromaddress']."\r\n
+      					 X-Mailer: PHP/" . phpversion();
       $mail_header   .= "Content-Type: text/plain";
     } elseif($mail_type=='html') {
       $mail_to      = $name." <".$mail.">";
-      $mail_header    = "From:\"".$cfg['mail']['from']."\" <".$cfg['mail']['fromaddress'].">\n";
+      $mail_header    = "From:\"".$cfg['mail']['from']."\" <".$cfg['mail']['fromaddress'].">\r\n
+      					 Reply-To: ".$cfg['mail']['fromaddress']."\r\n
+      					 X-Mailer: PHP/" . phpversion();
       $mail_header   .= "Content-Type: text/html";
     }
 
       if(!mail($mail_to,$subject,$message,$mail_header))
         error('transfer');
-    }
   }
 
   function getTemplate($filename,$directory=false) {
