@@ -1,24 +1,29 @@
 <?
   
-  function sendMail($mail,$name,$subject,$message,$mail_type='text') {
-  	global $cfg;
-    if($mail_type=='text') {
-      $mail_to      = $name." <".$mail.">";
-      $mail_header    = "From:\"".$cfg['mail']['from']."\" <".$cfg['mail']['fromaddress'].">\r\n
-      					 Reply-To: ".$cfg['mail']['fromaddress']."\r\n
-      					 X-Mailer: PHP/" . phpversion()."\r\n";
-      $mail_header   .= "Content-Type: text/plain\r\n";
-    } elseif($mail_type=='html') {
-      $mail_to      = $name." <".$mail.">";
-      $mail_header    = "From:\"".$cfg['mail']['from']."\" <".$cfg['mail']['fromaddress'].">\r\n
-      					 Reply-To: ".$cfg['mail']['fromaddress']."\r\n
-      					 X-Mailer: PHP/" . phpversion()."\r\n";
-      $mail_header   .= "Content-Type: text/html\r\n";
-    }
+	function sendMail($mail,$name,$subject,$message,$mail_type='text') {
+	
+		global $cfg;
+		
+		if($mail_type=='text') {
+			$mail_to    = $name." <".$mail.">";
+			$header 	= 'From: '.$cfg['mail']['from'].' <'.$cfg['mail']['fromaddress'].'>\n
+						   Reply-To: '.$cfg['mail']['fromaddress'].'\n
+						   X-Mailer: PHP/'.phpversion().'\n
+						   Content-Type: text/html\n
+						  ';
+		} elseif($mail_type=='html') {
+			$mail_to    = $name." <".$mail.">";
+			$header 	= 'From: '.$cfg['mail']['from'].' <'.$cfg['mail']['fromaddress'].'>\n
+      					   Reply-To: '.$cfg['mail']['fromaddress'].'\n
+      					   X-Mailer: PHP/'.phpversion().'\n
+      					   Content-Type: text/html\n
+      					  ';
+		}
 
-      if(!mail($mail_to,$subject,$message,$mail_header))
-        error('transfer');
-  }
+		if(!mail($mail_to,$subject,$message,$header,'-f '.$cfg['mail']['fromaddress']))
+			error('transfer');
+			
+	}
 
   function getTemplate($filename,$directory=false) {
     if(!$directory) {
