@@ -23,7 +23,7 @@
 	$query = mysql_query('SELECT * FROM `users` WHERE `uid`="'.$task['infouser'].'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
 	$user = mysql_fetch_array($query);
 	
-	sendMail($user['mail'], $user['prename'] . ' ' . $user['name'], 'Auftrag wurde '.$statuslist['text'].'', 'Hallo '.$user['prename'].'\n\nDer Auftrag Nr. '.$task['id'].' wurde '.$statuslist['text'].'.\nDetails: http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].'\n\nFreundliche Gr&uuml;sse', 'html');
+	sendMail($user['mail'], $user['prename'] . ' ' . $user['name'], 'Auftrag wurde '.str_replace('&ouml;', 'ö', $statuslist['text']).'', 'Hallo '.$user['prename'].'<br><br>Der Auftrag Nr. '.$task['id'].' wurde '.$statuslist['text'].'.<br>Details: http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].'<br><br>Freundliche Gr&uuml;sse', 'html');
 	
 	_message('Der Auftrag wurde '.$statuslist['text'].'.');
 	
