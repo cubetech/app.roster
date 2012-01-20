@@ -13,10 +13,11 @@
 						  ';
 		} elseif($mail_type=='html') {
 			$mail_to    = $name." <".$mail.">";
-			$header 	= 'MIME-Version: 1.0\n
-						   From: '.$cfg['mail']['from'].' <'.$cfg['mail']['fromaddress'].'>\n
-      					   Content-Type: multipart/mixed\n
-      					   Content-Transfer-Encoding: 8bit\n';
+			$header 	= 'From: '.$cfg['mail']['from'].' <'.$cfg['mail']['fromaddress'].'>\r\n
+						   Reply-To: '.$cfg['mail']['from'].' <'.$cfg['mail']['fromaddress'].'>\r\n
+      					   Content-Type: text-html\r\n
+      					   Content-Transfer-Encoding: 8bit\r\n
+      					   MIME-Version: 1.0\r\n';
 		}
 
 		if(!mail($mail_to,$subject,$message,$header,'-f '.$cfg['mail']['fromaddress']))
