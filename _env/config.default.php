@@ -2,20 +2,20 @@
 
 $cfg = array(
         'page'=>array(
-            'title'=>"workr",
-            'shortkey'=>"workr",
-            'address'=>"localhost/workr",
+            'title'=>"roster",
+            'shortkey'=>"roster",
+            'address'=>"localhost/roster",
             'pagecount'=>"3",
             'pagesteps'=>12,
         ),
         'mysql'=>array(
             'host'=>"localhost",
-            'user'=>"workr",
-            'password'=>"workr$",
-            'db'=>"workr",
+            'user'=>"roster",
+            'password'=>"roster$",
+            'db'=>"roster",
         ),
         'style'=>array(
-            'id'=>"workr",
+            'id'=>"roster",
             'path'=>"_style",
         ),
         'auth'=>array(
@@ -24,8 +24,8 @@ $cfg = array(
             'cookietimeout'=>60*60*24*30,
         ),
         'mail'=>array(
-        	'from'=>"workr",
-        	'fromaddress'=>"info@workr.ch",
+        	'from'=>"roster",
+        	'fromaddress'=>"info@roster.ch",
         ),
 );
 
