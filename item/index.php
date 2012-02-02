@@ -18,6 +18,11 @@
     write_header('Artikelliste');
     
     echo '
+        <p class="pull-right">
+            <a class="btn btn-primary" href="'.dire.'item/new/">
+                <i class="icon-plus icon-white"></i> Neuer Artikel hinzuf&uuml;gen
+            </a>
+        </p>
         
         <table class="table table-striped">
             <thead>
