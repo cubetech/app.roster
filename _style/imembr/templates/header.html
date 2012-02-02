@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>${title}</title>
+    <link rel="stylesheet" type="text/css" href="%stylepath%css/style.css" />
+    <link rel="stylesheet" type="text/css" href="%stylepath%css/jquery-ui-1.7.3.custom.css" />
+    <link rel="icon" href="%dire%favicon.ico" type="image/x-icon">
+    <meta name="keywords" content="svn, hosting, repository, opensource, subversion, cubetech" />
+    <meta name="description" content="iStock - Inventory Simpyfied" />
+    <meta name="author" content="cubetech.ch" />
+    <meta name="publisher" content="cubetech.ch" />
+    <meta name="copyright" content="iStock" />
+
+    <meta name="company" content="cubetech.ch" />
+    <meta name="reply-to" content="info@cubetech.ch" />
+    <meta name="content-language" content="de" />
+    <meta name="page-topic" content="Computer" />
+    <meta name="revisit-after" content="3 days" />
+    <meta name="robots" content="index, follow" />
+    
+    <script type="text/javascript" src="%stylepath%js/ajaxupload.js"></script>
+    <script src="%stylepath%js/jquery.min.js" type="text/javascript"></script>
+    <script src="%stylepath%js/jquery-ui-1.7.3.custom.min.js" type="text/javascript"></script>
+    <script src="%stylepath%js/jquery.ui.datepicker-de-CH.js" type="text/javascript"></script>
+    
+</head>
+
+<body><div id="test"><div style="width: 65em; text-align: left;">
+<a name="top"></a>
+
+    <div id="header">
+        <a href="%dire%" class="site-root"></a>
+        <ul>
+            <li id="nav_left"></li>
+            <li id="nav_webdesign"><a class="ul" href="%dire%">home</a></li>
+            <li id="nav_printdesign"><a class="ul" href="%dire%members/"><b>members</b></a></li>
+            <li id="nav_hosting"><a class="ul" href="%dire%cards/"><b>cards</b></a></li>
+            <li id="nav_support"><a class="ul" href="%dire%locations/">locations</a></li>
+            <li id="nav_kontakt"><a class="ul" href="%dire%login/">${login}</a></li>
+
+        </ul>
+    </div>
+    <div id="body">
+        <div id="menubar">
+            <div id="menubar_part">${authed}</div>
+            ${menu}
+            <!--<ul>
+                <li><a href="/page/officium"><b>Officium</b></a></li>
+                <li><a href="/page/screenshots">Die Screenshots</a></li>
+
+                <li><a href="/page/lizenz">Die Lizenz</a></li>
+                <li><a href="/page/download">Der Download</a></li>
+                <li><a href="/page/installation">Die Installation</a></li>
+            </ul>-->
+        </div>
+        <div id="sidebar">
+            <div class="sidebar-box">
+                ${boxmenu}
+            </div>
+        </div>
+        <div id="content">
+        ${title}
+        <br />
+        <hr />
+
