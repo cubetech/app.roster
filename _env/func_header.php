@@ -22,64 +22,18 @@
     $_complete = '';
     
     $uri = explode('/', $_SERVER["REQUEST_URI"]);
-    if(in_array('task', $uri) && in_array('new', $uri)) {
-    	$high_new = ' class="active"';
-    } elseif(in_array('task', $uri) && !in_array('?status=2', $uri)) {
-    	$high_task = ' class="active"';
-    } elseif(in_array('search', $uri)) {
-    	$high = '';
+    if(in_array('item', $uri)) {
+    	$high_item = ' class="active"';
+    } elseif(in_array('package', $uri)) {
+    	$high_package = ' class="active"';
     } else {
-    	$high = ' class="active"';
+    	$high_dashboard = ' class="active"';
     }
     
-    if(@$_SESSION['complete']==true) {
-    	$query = mysql_query('SELECT * FROM `task`');
-    	$tasks = array();
-    	while($fetch=mysql_fetch_array($query))
-    		array_push($tasks, $fetch);
-    		
-    	$company = '';
-    	$name = '';
-    	$mobile = '';
-    		
-    	foreach($tasks as $t) {
-    		$company .= '
-    		"'.$t['company'].'",';
-    		$name .= '
-    		"'.$t['name'].'",';
-    		$mobile .= '
-    		"'.$t['mobile'].'",';
-    	}
-    	
-    	$_complete = '
-		<script>
-			
-			$(function() {
-				var company = ['.$company.'
-				    ];
-				var name = ['.$name.'
-				    ];
-				var mobile = ['.$mobile.'
-					];
-				$( "#company" ).autocomplete({
-					source: jQuery.unique(company)
-				});
-				$( "#name" ).autocomplete({
-					source: jQuery.unique(name)
-				});
-				$( "#mobile" ).autocomplete({
-					source: jQuery.unique(mobile)
-				});
-			});
-		</script>
-		';
-		@$_SESSION['complete'] = false;
-	}
-		    
     $menu = '
-    <li><a href="'.dire.'task/"'.@$high_task.'>OFFENE AUFTR&Auml;GE</a></li>
-    <li><a href="'.dire.'task/?status=2"'.@$high.'>ERLEDIGTE AUFTR&Auml;GE</a></li>
-    <li><a href="'.dire.'task/new/"'.@$high_new.'>NEUER AUFTRAG ERFASSEN</a></li>
+    <li'.@$high_dashboard.'><a href="'.dire.'">Dashboard</a></li>
+    <li'.@$high_item.'><a href="'.dire.'item/">Artikel</a></li>
+    <li'.@$high_package.'><a href="'.dire.'package/">Pakete</a></li>
     ';
     
     if(!authed(false)) {
