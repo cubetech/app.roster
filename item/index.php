@@ -17,20 +17,9 @@
         
     write_header('Artikelliste');
     
-    ?>
+    linenav('Dashboard', dire, 'Neuer Artikel hinzuf&uuml;gen', dire . 'item/new/');
     
-		<p class="pull-left">
-			<a class="btn" href="<?=dire?>">
-			    <i class="icon-chevron-left"></i> Dashboard
-			</a>
-		</p>
-        <p class="pull-right">
-            <a class="btn btn-primary" href="<?=dire?>item/new/">
-                <i class="icon-plus icon-white"></i> Neuer Artikel hinzuf&uuml;gen
-            </a>
-        </p>
-        
-        <br /><br /><br />
+    ?>
         
         <h1>Artikelliste</h1>
         
