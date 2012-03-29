@@ -7,16 +7,10 @@
 
 	write_header('Artikeldetails ' . $id);
 	
+	linenav('Zur&uuml;ck', '../');
+	
 	?>
 	
-		<p class="pull-left">
-			<a class="btn" href="<?=dire?>item/">
-			    <i class="icon-chevron-left"></i> Zur&uuml;ck
-			</a>
-		</p>
-		
-		<br /><br /><br />
-		
 		<h1>Artikeldetails Nr. <?=$id?></h1>
 		
 	<?php
