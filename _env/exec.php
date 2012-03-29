@@ -13,6 +13,7 @@
     include(dire.'_env/func_header.php');
     include(dire.'_env/func_message.php');
     include(dire.'_env/func_mysql.php');
+    include(dire.'_env/func_style.php');
     include(dire.'_env/func_user.php');
 
     mdb_connect();
