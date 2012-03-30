@@ -3,12 +3,18 @@
     define('dire', '../../');
     include(dire . '_env/exec.php');
     
+    $buyplace = array();
+    $query = mysql_query('SELECT * FROM `buyplace`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+    while($fetch=mysql_fetch_array($query)) {
+        array_push($buyplace, $fetch);
+    } //while
+    
     $category = array();
     $query = mysql_query('SELECT * FROM `category`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     while($fetch=mysql_fetch_array($query)) {
         array_push($category, $fetch);
     } //while
-    
+
     $condition = array();
     $query = mysql_query('SELECT * FROM `condition`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     while($fetch=mysql_fetch_array($query)) {
@@ -64,16 +70,24 @@
                    	                    <span class="add-on span3" style="margin-left: 0;">CHF</span>
                    	                    <input id="name" name="name" class="span6" type="text" value="" />
                         </div>
-                   	    <label for="name">Zustand</label>
-                   	    <select name="zustand">
-                   	        <?php
-                   	            foreach($condition as $c) {
-                   	                echo '<option value="'.$c['id'].'">'.$c['name'].'</option>
-                   	                ';
-                   	            }
-                   	        ?>
-                   	    </select>
-                   	    <label for="name">Ort</label><input id="name" name="name" type="text" value="" />
+                        <label for="name">Zustand</label>
+                        <select name="zustand">
+                            <?php
+                                foreach($condition as $c) {
+                                    echo '<option value="'.$c['id'].'">'.$c['name'].'</option>
+                                    ';
+                                }
+                            ?>
+                        </select>
+                        <label for="name">Kaufort</label>
+                        <select name="buyplace">
+                            <?php
+                                foreach($buyplace as $b) {
+                                    echo '<option value="'.$b['id'].'">'.$b['name'].'</option>
+                                    ';
+                                }
+                            ?>
+                        </select>
                    	    
                    	  </div><!--/span-->
                 	  <div class="span4">
