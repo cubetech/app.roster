@@ -32,7 +32,22 @@
     <script src="%stylepath%js/jquery-1.7.2.min.js"></script>
     <script src="%stylepath%js/jquery-ui-1.8.18.custom.min.js"></script>
     <script src="%stylepath%js/datepicker.js"></script>
-    
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+    <script src="%stylepath%js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() 
+        { 
+        $('#photoimg').live('change', function()	
+        { 
+        $("#preview").html('');
+        $("#preview").html('<img src="loader.gif" alt="Uploading...."/>');
+        $("#imageform").ajaxForm(
+        {
+        target: '#preview'
+        }).submit();
+        });
+        }); 
+    </script>
   </head>
 
   <body>
