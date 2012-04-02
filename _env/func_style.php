@@ -28,6 +28,9 @@
     
         // Check if session call
         
+        echo '</div>
+        <div class="row-fluid">';
+        
         if(!isset($left) || $left == '') {
             echo $_SESSION['linenav'];
             return true;
