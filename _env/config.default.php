@@ -8,6 +8,7 @@ $cfg = array(
             'pagecount'=>"3",
             'pagesteps'=>12,
             'autoinclude'=>'_env/addons/',
+            'imagesize'=>(1024*1024*5),
         ),
         'mysql'=>array(
             'host'=>"localhost",
