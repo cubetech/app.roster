@@ -49,6 +49,14 @@
         				        
         				?>
         			</ul>
+        			<br />
+        			<ul class="nav nav-list">
+                        <form id="imageform" method="post" enctype="multipart/form-data" action='image/'>
+                        <li class="nav-header">Bild einf&uuml;gen</li>
+                        <li><input type="file" name="photoimg" id="photoimg" /></li>
+                        </form>
+                        <li><div id='preview' /></li>
+        			</ul>
         		</div>
         	</div>
         	
