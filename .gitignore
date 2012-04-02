@@ -1,1 +1,4 @@
 _env/config.php
+_images/*jpg
+_images/*png
+_images/*gif
