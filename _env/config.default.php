@@ -7,6 +7,7 @@ $cfg = array(
             'address'=>"localhost/roster",
             'pagecount'=>"3",
             'pagesteps'=>12,
+            'autoinclude'=>'_env/addons/',
         ),
         'mysql'=>array(
             'host'=>"localhost",

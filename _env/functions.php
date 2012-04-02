@@ -129,4 +129,64 @@
       return round($size / pow(1024, ($i = floor(log($size, 1024)))), $round) . ' ' . $si[$i];
     }
     
+    function autoinclude($path) {
+        $getpath = opendir($path);
+        while($includepath = readdir($getpath)) {
+            if(is_dir($path . $includepath) && $includepath != '.' && $includepath != '..') {
+                $incpath = opendir($path . $includepath);
+                while($includefile = readdir($incpath)) {
+                    if($includefile == 'index.php') {
+                        include($path . '/' . $includepath . '/' . $includefile);
+                    }
+                }
+            }
+        }
+    }
+    
+    function code13() {
+    
+        $code = substr(number_format(time() * rand(),0,'',''),0,13);
+        $query = mysql_query('SELECT * FROM barcode WHERE `barcode`="'.$code.'"') OR sqlError(__FILE__,__LINE__,__FUNCTION__);
+        $fetch = mysql_fetch_array($query);
+        if($fetch)
+            $code = code13();
+        else
+            $query = mysql_query('INSERT INTO barcode (barcode) VALUES ("'.$code.'")') OR sqlError(__FILE__,__LINE__,__FUNCTION__);
+            return mysql_insert_id();
+        
+    }
+    
+    function gen_query($data) {
+    
+        $names = '(';
+        $values = '(';
+        
+        foreach($data as $name => $value) {
+        
+            if($name=='datepicker') {
+                $value = explode('.', $value);
+                $value = mktime(0, 0, 0, $value[1], $value[0], $value[0]);
+                $name = 'buydate';
+            }
+        
+            $names .= ''.$name.',';
+            $values .= '
+            \''.$value . '\',';
+            
+        }
+        
+        if(substr($names, -1, 1)==',') {
+            $names = substr($names, 0, -1);
+        }
+        
+        if(substr($values, -1, 1)==',') {
+            $values = substr($values, 0, -1);
+        }
+    
+        $result = array('names'=>$names, 'values'=>$values);
+        
+        return $result;
+        
+    }
+    
 ?>

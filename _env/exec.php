@@ -16,20 +16,12 @@
     include(dire.'_env/func_style.php');
     include(dire.'_env/func_user.php');
 
+    autoinclude(dire . $cfg['page']['autoinclude']);
     mdb_connect();
     auth_start();
     
     $tmp_style_path = dire.$cfg['style']['path'].'/'.$cfg['style']['id'].'/';
     $sidebar = '';
 
-	#if(!function_exists('svn_info'))
-    #    error('own','Die PHP-Subversion-Extension ist auf diesem Server nicht installiert. Das System kann nicht verwendet werden. <br/><br />
-    #    <b>Anleitung</b><br />
-    #    Zuerst muss via <code>sudo aptitude install php-pear php5-dev libsvncpp-dev</code> einige Pakete nachinstalliert werden<br />
-    #    Danach mit <code>sudo pecl install svn-0.5.0</code> die Subversion-Extension installieren<br />
-    #    Nun muss in der php.ini noch die svn.so-Extension eingetragen werden und der Apache ein mal neugestartet werden.<br />
-    #    Jetzt sollte diese Meldung nicht mehr auftauchen.        
-    #    ');
-    
     header('Content-Type: text/html; charset=iso-8859-1');
 ?>
