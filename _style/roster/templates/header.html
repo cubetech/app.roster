@@ -34,20 +34,7 @@
     <script src="%stylepath%js/datepicker.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="%stylepath%js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() 
-        { 
-        $('#photoimg').live('change', function()	
-        { 
-        $("#preview").html('');
-        $("#preview").html('<img src="loader.gif" alt="Uploading...."/>');
-        $("#imageform").ajaxForm(
-        {
-        target: '#preview'
-        }).submit();
-        });
-        }); 
-    </script>
+    <script src="%stylepath%js/upload.js"></script>
   </head>
 
   <body>
