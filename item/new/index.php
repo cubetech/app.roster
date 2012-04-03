@@ -52,16 +52,16 @@
         			<br />
         			<ul class="nav nav-list">
                         <form id="imageform" method="post" enctype="multipart/form-data" action='image/'>
-                        <li class="nav-header">Bild einf&uuml;gen</li>
-                        <li><input type="file" name="photoimg" id="photoimg" /></li>
+                            <li class="nav-header">Bild einf&uuml;gen</li>
+                            <li><input type="file" name="photoimg" id="photoimg" /></li>
                         </form>
+        	            <form id="form" name="form" method="POST" action="save.php">
                         <li><div id='preview' /></li>
         			</ul>
         		</div>
         	</div>
         	
         	<div class="span9">
-        	    <form id="form" name="form" method="POST" action="save.php">
             	    <h1><?=$title?></h1>
             	    
             	    <hr>

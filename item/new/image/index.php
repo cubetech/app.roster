@@ -17,10 +17,13 @@
             list($txt, $ext) = explode(".", $name);
             if(in_array($ext,$valid_formats)) {
                 if($size<$imagesize) { // Image size max
-                    $actual_image_name = time().".".$ext;
+                    $actual_image_name = substr(number_format(time() * rand(),0,'',''),0,16).".".$ext;
                     $tmp = $_FILES['photoimg']['tmp_name'];
                     if(move_uploaded_file($tmp, $path.$actual_image_name)) {
-                        echo "<img src='". substr($path, 3) . $actual_image_name . "' class='preview'>";
+                        mysql_query('INSERT INTO image (name) VALUES ("' . $actual_image_name . '")') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+                        $id = mysql_insert_id();
+                        echo '<img src="'. substr($path, 3) . $actual_image_name . '" class="preview">
+                              <input type="hidden" name="data[image]" value="'. $id . '" />';
                     } else {
                         echo '<div class="alert alert-error"><a class="close" data-dismiss="alert">x</a>Fehlgeschlagen!</div>';
                     }

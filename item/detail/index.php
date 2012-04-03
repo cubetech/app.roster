@@ -10,7 +10,8 @@
                                  c.name AS categoryname,
                                  b.barcode as fullbarcode,
                                  z.name as condname,
-                                 p.name as placename
+                                 p.name as placename,
+                                 m.name as imgname
                             FROM `item` i
                             LEFT JOIN 
                             `category` c ON i.category = c.id
@@ -20,6 +21,8 @@
                             `buyplace` p ON (i.buyplace = p.id)
                             LEFT JOIN
                             `condition` z ON i.buycondition = z.id
+                            LEFT JOIN
+                            `image` m on i.image = m.id
                             WHERE i.id="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     $item = mysql_fetch_array($query);
     
@@ -48,7 +51,7 @@
             </ul>
             <ul class="nav nav-list">
             	<li class="nav-header">Bild</li>
-                <li><img src="http://www.bkktrade.com/wp-content/uploads/classipress/for-saleapple-laptop-769689311.jpg" alt="bangkok" /></li>
+                <li><img src="<?=dire?>_image/item/<?=$item['imgname']?>" alt="<?=$item['imgname']?>" /></li>
             </ul>
 		</div>
 	</div>
