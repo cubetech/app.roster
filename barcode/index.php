@@ -1,6 +1,7 @@
 <?php
 
     define('dire', '../');
+    include(dire . '_env/exec.php');
     
     require(dire . '_env/addons/php-barcode/php-barcode.php');
 
@@ -16,8 +17,25 @@
     } else {
         $code=getvar('code');
     }
-    if (!$code) header('Location: '.dire);
+    if ($code) {
+        barcode_print($code,getvar('encoding'),getvar('scale'),getvar('mode'));
+    } else {
     
-    barcode_print($code,getvar('encoding'),getvar('scale'),getvar('mode'));
+        $query = mysql_query('SELECT COUNT(*) FROM `barcode`');
+        $count = mysql_fetch_row($query);
+    
+        write_header('Barcodes');
+        
+        linenav('Dashboard', dire, 'Barcodes aufr&auml;umen', dire . 'barcode/cleanup/');
+        
+        ?>
+            
+            Es sind aktuell <strong><?=$count[0]?> Barcodes</strong> vorhanden.
+            
+        <?
+        
+        write_footer();
+        
+    }
 
 ?>
