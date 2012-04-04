@@ -13,3 +13,33 @@ dd {
 .loader {
     background-image: url(../images/loader.gif);
 }
+
+.error {
+  color: #b94a48;
+  border-color: #b94a48;
+}
+.error:focus {
+  border-color: #953b39;
+  -webkit-box-shadow: 0 0 6px #d59392;
+  -moz-box-shadow: 0 0 6px #d59392;
+  box-shadow: 0 0 6px #d59392;
+}
+.valid {
+  color: #468847;
+  border-color: #468847;
+}
+.valid:focus {
+  border-color: #356635;
+  -webkit-box-shadow: 0 0 6px #7aba7b;
+  -moz-box-shadow: 0 0 6px #7aba7b;
+  box-shadow: 0 0 6px #7aba7b;
+}
+
+.tableicons {
+    width: auto;
+}
+
+.navbar-fixed-top .container, .navbar-fixed-bottom .container {
+    max-width: 1140px;
+    width: auto;
+}
