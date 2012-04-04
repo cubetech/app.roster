@@ -2,6 +2,9 @@
 
     define('dire', '../../');
     include(dire . '_env/exec.php');
+    
+    //header('Location: ./');
+    //die();
 
     $data = vGET('data');
     if(!@$data['barcode'] || @$data['barcode']=='') {
@@ -21,10 +24,19 @@
         $query = mysql_query('SELECT * FROM `customfield` WHERE `name`="'.$name.'"') OR sqlError(__FILE__,__LINE__,__FUNCTION__);
         $field = mysql_fetch_array($query);
         
-        mysql_query('INSERT INTO `customcontent` (field_id, value_id, value) VALUES ("'.$field['id'].'", "'.$value_id.'", "'.$value.'")') OR sqlError(__FILE__,__LINE__,__FUNCTION__);
+        if(isset($value) && $value!='') {
+            mysql_query('INSERT INTO `customcontent` (field_id, value_id, value) VALUES ("'.$field['id'].'", "'.$value_id.'", "'.$value.'")') OR sqlError(__FILE__,__LINE__,__FUNCTION__);
+        }
         
     }
     
+    $category = vGET('category');
+    if(is_array($category)) {
+        foreach($category as $c) {
+            mysql_query('INSERT INTO `categoryitem` (category_id, item_id) VALUES ("'.$c.'", "'.$value_id.'")') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+        }
+    }
+
     header('Location: '.dire.'item/detail/?id=' . $value_id);
 
 ?>
