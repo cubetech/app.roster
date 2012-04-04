@@ -24,6 +24,8 @@
     $uri = explode('/', $_SERVER["REQUEST_URI"]);
     if(in_array('item', $uri)) {
     	$high_item = ' class="active"';
+    } elseif(in_array('barcode', $uri)) {
+    	$high_barcode = ' class="active"';
     } elseif(in_array('package', $uri)) {
     	$high_package = ' class="active"';
     } else {
@@ -32,6 +34,7 @@
     
     $menu = '
     <li'.@$high_dashboard.'><a href="'.dire.'">Dashboard</a></li>
+    <li'.@$high_barcode.'><a href="'.dire.'barcode/">Barcode</a></li>
     <li'.@$high_item.'><a href="'.dire.'item/">Artikel</a></li>
     <li'.@$high_package.'><a href="'.dire.'package/">Pakete</a></li>
     ';
