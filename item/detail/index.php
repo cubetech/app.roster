@@ -7,14 +7,11 @@
 	$title = 'Artikeldetails Nr. ' . $id;
 	
     $query = mysql_query('SELECT i.*, 
-                                 c.name AS categoryname,
                                  b.barcode as fullbarcode,
                                  z.name as condname,
                                  p.name as placename,
                                  m.name as imgname
                             FROM `item` i
-                            LEFT JOIN 
-                            `category` c ON i.category = c.id
                             LEFT JOIN
                             `barcode` b ON i.barcode = b.id
                             LEFT JOIN
@@ -33,13 +30,25 @@
                              LEFT JOIN
                              `customfield` f ON c.field_id = f.id
                              WHERE c.value_id="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
-                             
     while($fetch=mysql_fetch_array($query))
         array_push($customcontent, $fetch);
+        
+    $category = array();
+    $query = mysql_query('SELECT c.*,
+                                 o.name as name 
+                            FROM `categoryitem` c
+                            LEFT JOIN
+                            `category` o ON c.category_id = o.id
+                            WHERE `item_id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+    while($fetch=mysql_fetch_array($query))
+        array_push($category, $fetch);
 
 	write_header($title);
 	
-	linenav('Zur&uuml;ck', '../');
+addbutton('Barcode drucken', dire . 'barcode/print/?id=' . $item['barcode'], 'btn-inverse', 'icon-print icon-white');
+addbutton('Bearbeiten', '../edit/?id=' . $id, 'btn-warning', 'icon-pencil icon-white');
+addbutton('L&ouml;schen', '../delete/?id=' . $id);
+linenav('Zur&uuml;ck', '../', 'Paket erstellen', dire . 'package/new/?item_id=' . $id, 'icon-chevron-left', 'icon-fire icon-white');
 	
 	?>
 	
@@ -47,11 +56,23 @@
 		<div class="well sidebar-nav">
             <ul class="nav nav-list">
             	<li class="nav-header">Kategorie</li>
-                <li><?=$item['categoryname']?></li>
+            	<?php
+            	    foreach($category as $c) {
+            	        echo '<li><a href="'.dire.'category/?id='.$c['category_id'].'">'.$c['name'].'</a></li>';
+            	    }
+            	?>
             </ul>
             <ul class="nav nav-list">
             	<li class="nav-header">Bild</li>
-                <li><img src="<?=dire?>_image/item/<?=$item['imgname']?>" alt="<?=$item['imgname']?>" /></li>
+                <li>
+                <?php
+                    if(isset($item['imgname']) && $item['imgname']!='') {
+                        echo '<img src="'.dire.'_image/item/'.$item['imgname'].'" alt="'.$item['imgname'].'" />';
+                    } else {
+                        echo '<i>Kein Bild vorhanden</i>';
+                    }
+                ?>
+                </li>
             </ul>
 		</div>
 	</div>
@@ -69,7 +90,7 @@
     	    <dl>
     	        <dt>Name</dt><dd><?=$item['name']?></dd>
     	        <dt>Beschreibung</dt><dd><?=$item['comments']?></dd>
-    	        <dt>Barcode</dt><dd><img src="<?=dire?>barcode/?code=<?=$item['fullbarcode']?>" alt="barcode" /></dd>
+    	        <dt>Barcode</dt><dd><a href="<?=dire?>barcode/detail/?id=<?=$item['barcode']?>"><img src="<?=dire?>barcode/?code=<?=$item['fullbarcode']?>" alt="barcode" /></a></dd>
     	    </dl>
     	        	    
     	  </div><!--/span-->
