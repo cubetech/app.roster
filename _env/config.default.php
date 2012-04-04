@@ -29,6 +29,11 @@ $cfg = array(
         	'from'=>"roster",
         	'fromaddress'=>"info@roster.ch",
         ),
+        'pdf'=>array(
+            'orientation'=>"L", // L für Querformat, P für Hochformat
+            'width'=>76.2,
+            'height'=>42.3,
+        ),
 );
 
 ?>
