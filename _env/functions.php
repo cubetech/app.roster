@@ -151,7 +151,7 @@
         if($fetch)
             $code = code13();
         else
-            $query = mysql_query('INSERT INTO barcode (barcode) VALUES ("'.$code.'")') OR sqlError(__FILE__,__LINE__,__FUNCTION__);
+            $query = mysql_query('INSERT INTO barcode (barcode, time) VALUES ("'.$code.'", "'.time().'")') OR sqlError(__FILE__,__LINE__,__FUNCTION__);
             return mysql_insert_id();
         
     }
