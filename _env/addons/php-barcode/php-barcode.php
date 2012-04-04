@@ -192,8 +192,8 @@ function barcode_outimage($text, $bars, $scale = 1, $mode = "png",
 	header("Content-Type: image/gif; name=\"barcode.gif\"");
 	imagegif($im);
     } else {
-	header("Content-Type: image/png; name=\"barcode.png\"");
-	imagepng($im);
+	//header("Content-Type: image/png; name=\"barcode.png\"");
+	return imagepng($im);
     }
 
 }
