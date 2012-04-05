@@ -43,3 +43,11 @@ dd {
     max-width: 1140px;
     width: auto;
 }
+
+.pull-right {
+    margin-left: 0.5em;
+}
+
+.preview {
+    width: 15.5em;
+}
