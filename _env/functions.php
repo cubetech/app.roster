@@ -86,6 +86,17 @@
     }
     return false;
   }
+  
+  function iGET($str,$safe=true,$type=false,$strtype=false,$ent=true) {
+  
+      $var = vGET($str, $safe, $type, $strtype, $ent);
+      if(!$var || $var=='') {
+          error('transfer');
+      }
+      
+      return $var;
+  
+  }
 
   // searching a string for possible URL's and E-Mail-Addys and replacing it with a HTML-Link
   // targets can be defined with the variables $cfg_parseurl_url and $cfg_parseurl_mail (~ _env/config.php)
@@ -187,6 +198,30 @@
         
         return $result;
         
+    }
+    
+    function gen_update_query($data) {
+    
+        $query = '';
+    
+        foreach($data as $name => $value) {
+        
+            if($name=='datepicker') {
+                $value = explode('.', $value);
+                $value = mktime(0, 0, 0, $value[1], $value[0], $value[0]);
+                $name = 'buydate';
+            }
+        
+            $query .= '
+            '.$name.'="'.$value.'",';
+        }
+                
+        if(substr($query, -1, 1)==',') {
+            $query = substr($query, 0, -1);
+        }
+                
+        return $query;
+    
     }
     
 ?>
