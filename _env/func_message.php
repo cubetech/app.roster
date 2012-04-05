@@ -24,7 +24,10 @@
     			ob_end_clean();
     		}
         write_header('Fehler');
-      echo $output.'<br /><br /><a href="'.$btntarget.'"><input type="button" value="'.$btnstr.'" onClick="location=\''.$btntarget.'\'; return false;"></a>';
+      echo $output.'<br /><br />
+      <a class="btn btn-primary" href="' . $btntarget . '" title="' . $btnstr . '">
+          <i class="icon-ok icon-white"></i> ' . $btnstr . '
+      </a>';
       write_footer();
       die();
     }
