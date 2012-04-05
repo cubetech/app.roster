@@ -3,6 +3,17 @@
     define('dire', '../../');
     include(dire . '_env/exec.php');
     
+    $code = vGET('bid');
+    if(isset($code)) {
+        $query = mysql_query('SELECT * FROM `item` WHERE `barcode`="'.$code.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+        $item = mysql_fetch_array($query);
+        if($item) {
+            error('own', 'Mit diesem Barcode kann kein neuer Artikel erstellt werden, da bereits ein Artikel assoziiert ist.<br />
+                          Sie m&uuml;ssen erst f&uuml;r diesen Artikel einen neuen Barcode generieren, danach kann dieser Barcode verwendet werden.<br /><br />
+                          ' . gen_left_btn('Artikel anzeigen', dire . 'item/detail/?id=' . $item['id'], 'icon-forward', 'btn') . '<br />');
+        }
+    }
+    
     $buyplace = array();
     $query = mysql_query('SELECT * FROM `buyplace`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     while($fetch=mysql_fetch_array($query)) {
@@ -23,7 +34,9 @@
     
     $title = 'Neuer Artikel hinzuf&uuml;gen';
     
-    $code = code13();
+    if(!isset($code)) {
+        $code = code13();
+    }
     $query = mysql_query('SELECT * FROM `barcode` WHERE `id`="'.$code.'"');
     $barcode = mysql_fetch_array($query);
     
