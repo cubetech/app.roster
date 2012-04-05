@@ -3,7 +3,7 @@
     define('dire', '../../');
     include(dire . '_env/exec.php');
     
-    $id = vGET('id');
+    $id = iGET('id');
     
     $query = mysql_query('SELECT * FROM `barcode` WHERE `id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     $barcode = mysql_fetch_array($query);
@@ -15,6 +15,7 @@
     
     write_header($title);
     
+    addbutton('Neuer Artikel mit diesem Barcode erstellen', dire . 'item/new/?bid=' . $id, 'btn-warning', 'icon-plus icon-white');
     linenav('Zur&uuml;ck', 'javascript:history.back();', 'Barcode neu generieren', dire . 'barcode/new/?item_id=' . $item['id'], 'icon-chevron-left', 'icon-fire icon-white');
 
     ?>
@@ -23,7 +24,7 @@
 		<div class="well sidebar-nav">
             <ul class="nav nav-list">
             	<li class="nav-header">Barcode</li>
-            	<li><img src="<?=dire?>barcode/?code=<?=$barcode['barcode']?>" alt="barcode" /></li>
+            	<li><img class="preview" src="<?=dire?>barcode/?code=<?=$barcode['barcode']?>" alt="barcode" /></li>
             </ul>
 		</div>
 	</div>
@@ -49,7 +50,13 @@
     	    <h2>Assoziierter Artikel</h2>
 
             <dl>
-                <dt>Name</dt><dd><a href="<?=dire?>item/detail/?id=<?=$item['id']?>"><?=$item['name']?></a></dd>
+                <?php
+                    if(!$item) {
+                        echo '<dt>Kein Artikel assoziiert!</dt><dd>&nbsp;</dd>';
+                    } else {
+                        echo '<dt>Name</dt><dd><a href="' . dire. 'item/detail/?id=' . $item['id'] . '">' . $item['name'] . '</a></dd>';
+                    }
+                ?>
             </dl>
        	    
        	  </div><!--/span-->
