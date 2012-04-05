@@ -9,6 +9,7 @@ $cfg = array(
             'pagesteps'=>12,
             'autoinclude'=>'_env/addons/',
             'imagesize'=>(1024*1024*5),
+            'tmpfolder'=>'/tmp',
         ),
         'mysql'=>array(
             'host'=>"localhost",
@@ -30,9 +31,9 @@ $cfg = array(
         	'fromaddress'=>"info@roster.ch",
         ),
         'pdf'=>array(
-            'orientation'=>"L", // L für Querformat, P für Hochformat
-            'width'=>76.2,
-            'height'=>42.3,
+            'orientation'=>"P", // L für Querformat, P für Hochformat
+            'width'=>89,
+            'height'=>36,
         ),
 );
 
