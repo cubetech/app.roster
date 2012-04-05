@@ -3,7 +3,7 @@
 	define('dire', '../../');
 	include(dire . '_env/exec.php');
 	
-	$id = vGET('id');
+	$id = iGET('id');
 	$title = 'Artikeldetails Nr. ' . $id;
 	
     $query = mysql_query('SELECT i.*, 
@@ -67,7 +67,7 @@ linenav('Zur&uuml;ck', '../', 'Paket erstellen', dire . 'package/new/?item_id=' 
                 <li>
                 <?php
                     if(isset($item['imgname']) && $item['imgname']!='') {
-                        echo '<img src="'.dire.'_image/item/'.$item['imgname'].'" alt="'.$item['imgname'].'" />';
+                        echo '<img class="preview" src="'.dire.'_image/item/'.$item['imgname'].'" alt="'.$item['imgname'].'" />';
                     } else {
                         echo '<i>Kein Bild vorhanden</i>';
                     }
