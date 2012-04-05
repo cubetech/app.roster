@@ -35,6 +35,8 @@
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="%stylepath%js/bootstrap.min.js"></script>
     <script src="%stylepath%js/upload.js"></script>
+    <script src="%stylepath%js/jquery.validate.min.js"></script>
+    
   </head>
 
   <body>
@@ -52,8 +54,8 @@
             <ul class="nav">
               ${menu}
             </ul>
-            <form class="navbar-search pull-left">
-              <input type="text" class="search-query" placeholder="Suche...">
+            <form class="navbar-search pull-left" method="post" action="%dire%search/">
+              <input type="text" class="search-query" name="search" placeholder="Suche...">
             </form>
             <p class="navbar-text pull-right">${login_menu}</p>
           </div><!--/.nav-collapse -->
