@@ -14,6 +14,11 @@ dd {
     background-image: url(../images/loader.gif);
 }
 
+.imgborder {
+    border: 4px solid;
+    margin:  0.4em;
+}
+
 .error {
   color: #b94a48;
   border-color: #b94a48;
