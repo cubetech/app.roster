@@ -21,18 +21,34 @@
         barcode_print($code,getvar('encoding'),getvar('scale'),getvar('mode'));
     } else {
     
-        $query = mysql_query('SELECT COUNT(*) FROM `barcode`');
-        $count = mysql_fetch_row($query);
+        $barcode = array();
+        $query = mysql_query('SELECT * FROM `barcode`');
+        while($fetch=mysql_fetch_array($query))
+            array_push($barcode, $fetch);
+        $count = count($barcode);
     
         write_header('Barcodes');
         
-        linenav('Dashboard', dire, 'Barcodes aufr&auml;umen', dire . 'barcode/cleanup/');
+        linenav('Dashboard', dire, 'Barcodes aufr&auml;umen', dire . 'barcode/cleanup/', 'icon-chevron-left', 'icon-fire icon-white');
         
         ?>
             
-            Es sind aktuell <strong><?=$count[0]?> Barcodes</strong> vorhanden.
-            
+            Es sind aktuell <strong><?=$count?> Barcodes</strong> vorhanden.
+            <br /><br />
+    
         <?
+        
+        foreach($barcode as $b) {
+            $query = mysql_query('SELECT * FROM `item` WHERE `barcode`="'.$b['id'].'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+            $item = mysql_fetch_array($query);
+            
+            $class = ' error';
+            if(is_array($item)) {
+                $class = ' valid';
+            }
+            
+            echo '<a title="Barcode-Details anzeigen" href="detail/?id=' . $b['id'] . '"><img src="' . dire . 'barcode/?code=' . $b['barcode'] . '" alt="barcode" class="imgborder ' . $class . '" /></a>';
+        }
         
         write_footer();
         
