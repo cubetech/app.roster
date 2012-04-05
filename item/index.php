@@ -63,9 +63,9 @@
                     <td><a href="'.dire.'item/detail/?id='.$i['id'].'">'.$i['name'].'</a></td>
                     <td>' . $i['statusname'] . '</td>
                     <td>' . 
-                    gen_right_btn('', dire . 'barcode/print/?id=' . $i['barcode'], 'icon-print icon-white', 'btn btn-mini btn-inverse', 'Barcode drucken', false) . ' ' . 
-                    gen_right_btn('', 'edit/?id=' . $i['id'], 'icon-pencil icon-white', 'btn btn-mini btn-warning', 'Artikel bearbeiten', false) . ' ' . 
-                    gen_right_btn('', 'delete/?id=' . $i['id'], 'icon-remove icon-white', 'btn btn-mini btn-danger', 'Artikel l&ouml;schen', false) . ' ' . 
+                    gen_right_btn('', dire . 'barcode/print/?id=' . $i['barcode'], 'icon-print icon-white', 'btn btn-mini btn-inverse', 'Barcode drucken', false) .
+                    gen_right_btn('', 'edit/?id=' . $i['id'], 'icon-pencil icon-white', 'btn btn-mini btn-warning', 'Artikel bearbeiten', false) .
+                    gen_right_btn('', 'delete/?id=' . $i['id'], 'icon-remove icon-white', 'btn btn-mini btn-danger', 'Artikel l&ouml;schen', false) .
                     gen_right_btn('', dire . 'package/new/?item_id=' . $i['id'], 'icon-fire icon-white', 'btn btn-mini btn-primary', 'Paket erstellen', false) . '</td>
                 </tr>
             ';
