@@ -6,21 +6,29 @@
     require(dire . '_env/addons/php-barcode/php-barcode.php');
     require(dire . '_env/addons/fpdf17/fpdf.php');
     
+    $id = vGET('id');
+    
+    $query = mysql_query('SELECT * FROM `barcode` WHERE `id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+    $barcode = mysql_fetch_array($query);
+    
     $pdf = new FPDF($cfg['pdf']['orientation'], 'mm', array($cfg['pdf']['width'], $cfg['pdf']['height']));
 
     $pdf->SetDisplayMode( 50 );
     $pdf->AddPage();
     
     ob_start();
-    barcode_print('888888888888');
+    barcode_print($barcode['barcode']);
     $source = ob_get_contents();
     ob_end_clean();
     
-    $image = '/tmp/' . time() . rand(100000,999999) . '.png';
-    $dpi = 72;
+    $image = $cfg['page']['tmpfolder'] . '/' . time() . rand(100000,999999) . '.png';
+    $dpi = 100;
     
     $resource = imagecreatefromstring($source);
+    $resource = imagerotate($resource, 90, 0);
     imagepng($resource, $image);
+
+    
 
     $size = @getimagesize($image);
     
@@ -38,6 +46,8 @@
 
     $pdf->Image($image, $x, $y, $size[0] * 25.4 / $dpi); 
 
-    $pdf->Output( 'pdf.pdf', 'I');
+    $pdf->Output( 'barcode.pdf', 'I');
+    
+    unlink($image);
 
 ?>
