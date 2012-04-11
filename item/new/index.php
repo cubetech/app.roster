@@ -14,6 +14,11 @@
         }
     }
     
+    $scode = vGET('scode', true, 'string');
+    if(isset($scode) && $scode!='' && strlen($scode)==13) {
+        $code = code13($scode);
+    }
+    
     $buyplace = array();
     $query = mysql_query('SELECT * FROM `buyplace`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     while($fetch=mysql_fetch_array($query)) {
