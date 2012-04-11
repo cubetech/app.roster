@@ -24,16 +24,7 @@
     write_header('Artikelliste');
     
     linenav('Dashboard', dire, 'Neuer Artikel hinzuf&uuml;gen', dire . 'item/new/');
-    
-    if(isset($del) && $del!='') {
-        echo '
-            <div class="alert alert-success">
-              <a class="close" data-dismiss="alert">x</a>
-              <strong>Gel&ouml;scht!</strong> Der Artikel mit der <strong>ID ' . $del . '</strong> wurde gel&ouml;scht.
-              <a href="undo/?id=' . $del . '">R&uuml;ckg&auml;ngig</a>
-            </div>';
-    }
-    
+        
     ?>
         
         <h1>Artikelliste</h1>
