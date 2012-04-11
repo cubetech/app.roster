@@ -243,4 +243,12 @@
     
     }
     
+    function set_message($title, $message, $type='alert-success') {
+        $_SESSION['set_message'] = array('title'=>$title, 'message'=>$message, 'type'=>$type);
+    }
+    
+    function unset_message() {
+        $_SESSION['set_message'] = '';
+    }
+    
 ?>

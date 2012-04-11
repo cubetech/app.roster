@@ -48,7 +48,7 @@
         $member = mysql_fetch_array($query);
         $login_menu = 'Angemeldet als <strong>'.$member['username'] . '</strong> | <a href="'.dire.'login/logout.php">Abmelden</a>';
     }
-
+    
     // check if there is a file of the style which should been included
     if(is_file($tmp_style_path.'_config/config_header.php'))
       include($tmp_style_path.'_config/config_header.php');
@@ -59,6 +59,18 @@
     $tmp_output_header    = ob_get_contents();
     ob_end_clean();
     ob_start();
+
+    $sm = @$_SESSION['set_message'];
+    
+    if(isset($sm['message']) && $sm['message'] != '') {
+        echo '
+            <div class="alert ' . $sm['type'] . '">
+              <a class="close" data-dismiss="alert">x</a>
+              <strong>' . $sm['title'] . '</strong> ' . $sm['message'] . '
+            </div>';
+        unset_message();
+    }
+
   }
 
   // writes the footer template and sends the whole sitecontent to the browser (bundeled)
