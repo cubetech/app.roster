@@ -14,11 +14,17 @@
     
     if (get_magic_quotes_gpc()){
         $code=stripslashes(getvar('code'));
+        $id=stripslashes(getvar('id'));
     } else {
         $code=getvar('code');
+        $id=getvar('id');
     }
     if ($code) {
         barcode_print($code,getvar('encoding'),getvar('scale'),getvar('mode'));
+    } elseif ($id) {
+        $query = mysql_query('SELECT * FROM `barcode` WHERE `id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+        $barcode = mysql_fetch_array($query);
+        barcode_print($barcode['barcode']);
     } else {
     
         $barcode = array();
