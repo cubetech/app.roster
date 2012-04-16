@@ -81,7 +81,14 @@
           return htmlentities(${$str});
         }
       } elseif(isset($value[$str])) {
-      	return htmlentities($value[$str]);
+        if(is_array($value[$str])) {
+            for($i=0; $i<count($value[$str]); $i++) {
+                $value[$str][$i] = htmlentities($value[$str][$i]);
+            }
+            return $value[$str];
+        } else {
+      	    return htmlentities($value[$str]);
+        }
       }
     }
     return false;

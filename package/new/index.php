@@ -6,7 +6,18 @@
     $item_id = vGET('item_id');
     
     if(isset($item_id) && $item_id!='') {
-        $query = mysql_query('SELECT * FROM `item` WHERE `id`="'.$item_id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+        $query = mysql_query('SELECT i.*, 
+                                     c.name AS categoryname,
+                                     b.barcode as fullbarcode,
+                                     s.status as statusname
+                                FROM item i 
+                                LEFT JOIN 
+                                category c ON (i.category = c.id)
+                                LEFT JOIN
+                                barcode b ON (i.barcode = b.id)
+                                LEFT JOIN
+                                status s ON (i.status = s.id)
+                                WHERE i.id="'.$item_id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
         $item = mysql_fetch_array($query);
         if(!$item) {
             error('own', 'Dieser Artikel wurde nicht gefunden.');
@@ -50,18 +61,14 @@
                 <hr>
                 
                 <div class="row-fluid">
-                  <div class="span6">
-                  
-                    <h2>Artikel</h2>
-                    <br />
+                    <div class="span6">
                     
-                    <dl>
-                        <dt>ID</dt><dd><?=$item['id']?></dd>
-                        <dt>Name</dt><dd><?=$item['name']?></dd>
-                        <dt>Barcode</dt><dd><img src="<?=dire?>barcode/?id=<?=$item['barcode']?>" /></dd>
-                    </dl>
+                        <h2>Ausleihpaket</h2>
+                        <br />
+                        
+                    </div>
                     
-                  </div><!--/span-->
+                        
                   <div class="span6">
                   
                     <h2>Kunde</h2>
@@ -108,6 +115,83 @@
                         
                   </div><!--/span-->
                 </div>
+                <div class="row-fluid">
+                    
+                    <div class="span12">
+                    
+                      <h2>Artikel</h2>
+                      <br />
+                      Artikel per Barcode hinzuf&uuml;gen:&nbsp;&nbsp;&nbsp; <input type="text" id="barcode" name="barcode" />
+                      <table class="table table-striped" id="items">
+                          <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Barcode</th>
+                                  <th>Kategorie</th>
+                                  <th class="big5">Artikel</th>
+                                  <th>Status</th>
+                                  <th class="tableicons"></th>
+                              </tr>
+                          </thead>
+                          <tbody id="itembody">
+                        <?php
+                            
+                        $i = $item;
+                        
+                            echo '
+                                    <tr id="'.$i['id'].'">
+                                        <td>'.$i['id'].'</td>
+                                        <td><a href="'.dire.'barcode/detail/?id='.$i['barcode'].'">'.$i['fullbarcode'].'</a></td>
+                                        <td><a href="'.dire.'category/?id='.$i['category'].'">'.$i['categoryname'].'</a></td>
+                                        <td><a href="'.dire.'item/detail/?id='.$i['id'].'">'.$i['name'].'</a></td>
+                                        <td>' . $i['statusname'] . '</td>
+                                        <td>' . 
+                                        gen_right_btn('', 'javascript:void(0);', 'icon-remove icon-white', 'btn btn-mini btn-danger" id="'.$i['id'].'', 'Artikel l&ouml;schen', false) . '</td>
+                                    </tr>
+                                ';
+
+                        ?>
+                        </tbody>
+                    </table>
+                    
+                    <div id="hiddeninputs" style="width: 0; height: 0;">
+                        <input type="hidden" id="hidden<?=$i['id']?>" name="item[]" value="<?=$i['id']?>" />
+                    </div>
+                    
+                    <script type="text/javascript">
+                       $('.btn').click(function(){
+                           $($(this).closest("tr")).remove();
+                           $("#hidden" + $(this).attr('id')).remove();
+                       });
+                       $(document).ready(function() { 
+                           $('#barcode').bind('keypress', function(event) {
+                               var code=event.charCode || event.keyCode;
+                               if(code && code == 13) { 
+                                   $("#form").ajaxForm({
+                                        url: 'add.php',
+                                        success: showResponse,
+                                    }).submit();
+                                    function showResponse(responseText, statusText, xhr, $form)  {
+                                        var item = eval('(' + responseText + ')');
+                                        if($("#" + item.id).length == 0) {
+                                            $("#itembody").append('<tr id="' + item.id + '"><td>' + item.id + '</td><td><a href="' + item.dire + 'barcode/detail/?id=' + item.barcode + '">' + item.fullbarcode + '</a></td><td>bla</td><td><a href="' + item.dire + 'item/detail/?id=' + item.id + '">' + item.name + '</a></td><td>' + item.statusname + '</td><td><a class="btn btn-mini btn-danger" id="' + item.id + '" href="javascript:void(0);" title="Artikel l&ouml;schen"><i class="icon-remove icon-white"></i></a></td></tr>');
+                                            $("#hiddeninputs").append('<input type="hidden" id="hidden' + item.id + '" name="item[]" value="' + $("#barcode").val() + '" />');
+                                            $('.btn').click(function(){
+                                                $($(this).closest("tr")).remove();
+                                                $("#hidden" + $(this).attr('id')).remove();
+                                            });
+                                        }
+                                    }
+                                   $("#barcode").val('');
+                               }
+                           });
+                       });
+                    </script>
+                      
+                    </div><!--/span-->
+                    
+                </div>
+                    
          	</div>
             </form>
         </div>
