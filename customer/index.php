@@ -5,8 +5,9 @@
     
     $customer = array();
     $query = mysql_query('SELECT c.*,
-                                 (SELECT COUNT(*) FROM package WHERE customer_id=c.id) as package
-                            FROM customer c 
+                                 (SELECT COUNT(*) FROM package WHERE `customer_id`=c.id AND `delete`!="1") as package
+                            FROM customer c
+                            WHERE c.delete!=1
                             ORDER BY c.id') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     while($fetch=mysql_fetch_array($query))
         array_push($customer, $fetch);

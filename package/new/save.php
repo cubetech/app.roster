@@ -8,15 +8,11 @@
     $items = vGET('item', true, 'str');
     $customer = vGET('customer', true, 'str');
     
-    var_dump($data);
-    var_dump($customer);
-    
     if($data['hidden']==false || $customer=='manual') {
         
         $client = vGET('client');
         
         $result = gen_query($client);
-        var_dump($result);
         $query = 'INSERT INTO `customer` ';
         
         mysql_query($query . $result['names'] . ') VALUES ' . $result['values'] . ')') OR sqlError(__FILE__,__LINE__,__FUNCTION__);
@@ -28,7 +24,7 @@
         
     }
     
-    $query = mysql_query('INSERT INTO `package` (name, duedate, customer_id) VALUES ("'.$data['packagename'].'", "'.mktime(0,0,0,$data['date'][1],$data['date'][0],$data['date'][2]).'", "'.$customer_id.'")') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+    $query = mysql_query('INSERT INTO `package` (name, duedate, customer_id, status) VALUES ("'.$data['packagename'].'", "'.mktime(0,0,0,$data['date'][1],$data['date'][0],$data['date'][2]).'", "'.$customer_id.'", "'.$data['status'].'")') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     $package_id = mysql_insert_id();
 
     if(@is_array($items)) {
@@ -41,5 +37,7 @@
         }
         
     }
+    
+    header('Location: ../detail/?id='.$package_id);
     
 ?>
