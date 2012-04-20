@@ -46,6 +46,11 @@
     while($fetch=mysql_fetch_array($query))
         array_push($categoryitem, $fetch);
         
+    $status = array();
+    $query = mysql_query('SELECT * FROM `status`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+    while($fetch=mysql_fetch_array($query))
+        array_push($status, $fetch);
+        
     write_header($title);
     
     linenav('Zur&uuml;ck', '../', 'Speichern', 'javascript:if($(\'#form\').valid()) { document.getElementById(\'form\').submit(); }', 'icon-chevron-left', 'icon-fire icon-white');
@@ -102,6 +107,19 @@
                     
                     <label for="name">Name</label><input id="name" name="data[name]" type="text" value="<?=$item['name']?>" class="required" minlength="2" />
                     <label for="comments">Beschreibung</label><textarea name="data[comments]" id="comments"><?=$item['comments']?></textarea>
+                    <label for="comments">Status</label>
+                    <select name="data[status]">
+                        <?php
+                            foreach($status as $s) {
+                                $selected = '';
+                                if($item['status']==$s['id']) {
+                                    $selected = ' selected';
+                                }
+                                echo '<option value="'.$s['id'].'"'.$selected.'>'.$s['status'].'</option>
+                                ';
+                            }
+                        ?>
+                    </select>
                     <label for="barcode">Barcode</label><img src="<?=dire?>barcode/?code=<?=$barcode['barcode']?>" id="barcode" alt="barcode" />
                     <input type="hidden" name="barcode" value="<?=$code?>" />
                     

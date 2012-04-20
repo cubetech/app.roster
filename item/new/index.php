@@ -39,12 +39,12 @@
     
     $title = 'Neuer Artikel hinzuf&uuml;gen';
     
-    if(!isset($code)) {
+    if(!isset($code) || $code=='') {
         $code = code13();
     }
     $query = mysql_query('SELECT * FROM `barcode` WHERE `id`="'.$code.'"');
     $barcode = mysql_fetch_array($query);
-    
+        
     $customfields = array();
     $query = mysql_query('SELECT * FROM `customfield` WHERE `type`="item"');
     while($fetch=mysql_fetch_array($query))

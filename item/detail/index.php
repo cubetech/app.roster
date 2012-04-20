@@ -10,7 +10,8 @@
                                  b.barcode as fullbarcode,
                                  z.name as condname,
                                  p.name as placename,
-                                 m.name as imgname
+                                 m.name as imgname,
+                                 s.status as statusname
                             FROM `item` i
                             LEFT JOIN
                             `barcode` b ON i.barcode = b.id
@@ -18,6 +19,8 @@
                             `buyplace` p ON (i.buyplace = p.id)
                             LEFT JOIN
                             `condition` z ON i.buycondition = z.id
+                            LEFT JOIN
+                            `status` s ON i.status = s.id
                             LEFT JOIN
                             `image` m on i.image = m.id
                             WHERE i.id="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
@@ -94,6 +97,7 @@ linenav('Zur&uuml;ck', '../', 'Paket erstellen', dire . 'package/new/?item_id=' 
     	    <dl>
     	        <dt>Name</dt><dd><?=$item['name']?></dd>
     	        <dt>Beschreibung</dt><dd><?=$item['comments']?></dd>
+    	        <dt>Status</dt><dd><?=$item['statusname']?></dd>
     	        <dt>Barcode</dt><dd><a href="<?=dire?>barcode/detail/?id=<?=$item['barcode']?>"><img src="<?=dire?>barcode/?code=<?=$item['fullbarcode']?>" alt="barcode" /></a></dd>
     	    </dl>
     	        	    

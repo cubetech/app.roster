@@ -223,7 +223,7 @@
         $result = array('names'=>$names, 'values'=>$values);
         
         return $result;
-        
+                    
     }
     
     function gen_update_query($data) {

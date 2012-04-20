@@ -28,6 +28,8 @@
     	$high_barcode = ' class="active"';
     } elseif(in_array('package', $uri)) {
     	$high_package = ' class="active"';
+    } elseif(in_array('customer', $uri)) {
+    	$high_customer = ' class="active"';
     } else {
     	$high_dashboard = ' class="active"';
     }
@@ -37,6 +39,7 @@
     <li'.@$high_barcode.'><a href="'.dire.'barcode/">Barcode</a></li>
     <li'.@$high_item.'><a href="'.dire.'item/">Artikel</a></li>
     <li'.@$high_package.'><a href="'.dire.'package/">Pakete</a></li>
+    <li'.@$high_customer.'><a href="'.dire.'customer/">Kunden</a></li>
     ';
     
     if(!authed(false)) {

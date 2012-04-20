@@ -4,6 +4,12 @@
     include(dire . '_env/exec.php');
     
     $del = vGET('del');
+    
+    $show = vGET('show');
+    $where = 'WHERE i.delete!=1';
+    if($show=='all') {
+        $where = false;
+    }
 
     $query = mysql_query('SELECT i.*, 
                                  c.name AS categoryname,
@@ -16,13 +22,19 @@
                             barcode b ON (i.barcode = b.id)
                             LEFT JOIN
                             status s ON (i.status = s.id)
-                            WHERE i.delete!=1') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+                            ' . $where) or sqlError(__FILE__,__LINE__,__FUNCTION__);
     $items = array();
     while($fetch=mysql_fetch_array($query))
         array_push($items, $fetch);
         
     write_header('Artikelliste');
     
+    if($show=='all') {
+        addbutton('Nur aktive anzeigen', dire . 'item/?show=active', 'btn-inverse', 'icon-resize-small icon-white');
+    } else {
+        addbutton('Alle anzeigen', dire . 'item/?show=all', 'btn-inverse', 'icon-resize-full icon-white');
+    }
+
     linenav('Dashboard', dire, 'Neuer Artikel hinzuf&uuml;gen', dire . 'item/new/');
         
     ?>
@@ -45,6 +57,10 @@
     <?php
         
     foreach($items as $i) {
+    
+        if($i['delete']==1) {
+            $i['statusname'] = 'Gel&ouml;scht';
+        }
     
         echo '
                 <tr>
