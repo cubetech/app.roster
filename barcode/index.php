@@ -28,7 +28,11 @@
     } else {
     
         $barcode = array();
-        $query = mysql_query('SELECT * FROM `barcode`');
+        $query = mysql_query('SELECT b.*
+                                    FROM barcode b
+                                    LEFT JOIN
+                                    item i ON (i.barcode = b.id)
+                                    WHERE i.delete!="1"');
         while($fetch=mysql_fetch_array($query))
             array_push($barcode, $fetch);
         $count = count($barcode);
