@@ -1,4 +1,4 @@
-<?
+<?php
 
   function locked($uid=false,$return=true) {
    return true;

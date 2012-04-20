@@ -1,4 +1,4 @@
-<?
+<?php
   // used for writing the header template
   // $align       : the align of the content {'center','right','left','justify'}
   // $title       : title of this page

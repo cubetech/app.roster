@@ -1,4 +1,4 @@
-<?
+<?php
   class sess {
     var $sid;
     var $sess_type; // unused, i think. but the table has a column for it :)

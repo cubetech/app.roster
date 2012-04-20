@@ -1,4 +1,4 @@
-<?
+<?php
 
     function error($errcode=false, $errstr=false, $btntarget='javascript:history.back();', $btnstr='Okay', $header='write') {
       $_errcodes    = array(

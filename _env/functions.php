@@ -1,4 +1,4 @@
-<?
+<?php
   
 	function sendMail($mail,$name,$subject,$message,$mail_type='text') {
 	

@@ -1,4 +1,4 @@
-<?
+<?php
 
   function mdb_connect() {
     global $cfg;

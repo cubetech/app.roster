@@ -1,4 +1,4 @@
-<?
+<?php
 
     error_reporting(E_ALL);
     ini_set('error_log',dire.'_env/error.txt');

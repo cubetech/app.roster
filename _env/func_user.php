@@ -1,4 +1,4 @@
-<?
+<?php
 
   function userName($uid) {
     global $cfg_page_shortkey;
