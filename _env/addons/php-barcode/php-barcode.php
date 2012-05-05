@@ -61,7 +61,7 @@ $font_loc=dirname(__FILE__)."/"."FreeSansBold.ttf";
  * genbarcode is needed to render encodings other than EAN-12/EAN-13/ISBN
  */
 //$genbarcode_loc="c:\winnt\genbarcode.exe";
-$genbarcode_loc="/usr/local/bin/genbarcode";
+$genbarcode_loc="/usr/local/bin/barcode";
 
 
 /* CONFIGURATION ENDS HERE */
@@ -176,7 +176,7 @@ function barcode_outimage($text, $bars, $scale = 1, $mode = "png",
     while (list($n, $v)=each($chars)){
 	if (trim($v)){
 	    $inf=explode(":", $v);
-	    $fontsize=$scale*($inf[1]/1.8);
+	    $fontsize=$scale*(@$inf[1]/1.8);
 	    $fontheight=$total_y-($fontsize/2.7)+2;
 	    @imagettftext($im, $fontsize, 0, $space['left']+($scale*$inf[0])+2,
 	    $fontheight, $col_text, $font_loc, $inf[2]);

@@ -3,6 +3,9 @@
     define('dire', '../../');
     include(dire . '_env/exec.php');
     
+    echo '<img src="'.dire.'barcode/?code=123456" />';
+    die();
+    
     $code = vGET('bid');
     if(isset($code)) {
         $query = mysql_query('SELECT * FROM `item` WHERE `barcode`="'.$code.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
@@ -15,15 +18,9 @@
     }
     
     $scode = vGET('scode', true, 'string');
-    if(isset($scode) && $scode!='' && strlen($scode)==13) {
+    if(isset($scode) && $scode!='') {
         $code = code13($scode);
     }
-    
-    $buyplace = array();
-    $query = mysql_query('SELECT * FROM `buyplace`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
-    while($fetch=mysql_fetch_array($query)) {
-        array_push($buyplace, $fetch);
-    } //while
     
     $category = array();
     $query = mysql_query('SELECT * FROM `category`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
@@ -31,12 +28,6 @@
         array_push($category, $fetch);
     } //while
 
-    $condition = array();
-    $query = mysql_query('SELECT * FROM `condition`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
-    while($fetch=mysql_fetch_array($query)) {
-        array_push($condition, $fetch);
-    } //while
-    
     $title = 'Neuer Artikel hinzuf&uuml;gen';
     
     if(!isset($code) || $code=='') {
@@ -106,24 +97,10 @@
                 	                    <span class="add-on span3" style="margin-left: 0;">CHF</span>
                 	                    <input id="price" name="data[buyprice]" class="span6" type="text" value="" />
                     </div>
-                    <label for="name">Zustand</label>
-                    <select name="data[buycondition]">
-                        <?php
-                            foreach($condition as $c) {
-                                echo '<option value="'.$c['id'].'">'.$c['name'].'</option>
-                                ';
-                            }
-                        ?>
-                    </select>
-                    <label for="name">Kaufort</label>
-                    <select name="data[buyplace]">
-                        <?php
-                            foreach($buyplace as $b) {
-                                echo '<option value="'.$b['id'].'">'.$b['name'].'</option>
-                                ';
-                            }
-                        ?>
-                    </select>
+                    <label for="buycondition">Zustand</label>
+                    <input id="buycondition" name="data[buycondition]" type="text" />
+                    <label for="buyplace">Kaufort</label>
+                    <input id="buyplace" name="data[buyplace]" type="text" />
                 	    
                 	  </div><!--/span-->
                   <div class="span4">

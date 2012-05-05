@@ -4,14 +4,7 @@
     include(dire . '_env/exec.php');
     
     $item_id = vGET('item_id');
-    $customer_id = vGET('customer_id');
-    
-    if(isset($customer_id) && $customer_id>0) {
-        $query = mysql_query('SELECT * FROM `customer` WHERE `id`="'.$customer_id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
-        $customer = mysql_fetch_array($query);
-        $titleadd = ' f&uuml;r '.$customer['prename'] . ' ' . $customer['name'];
-    }
-    
+
     if(isset($item_id) && $item_id!='') {
         $query = mysql_query('SELECT i.*, 
                                      c.name AS categoryname,
@@ -30,17 +23,6 @@
             error('own', 'Dieser Artikel wurde nicht gefunden.');
         } elseif($item['delete']!=0) {
             error('own', 'Dieser Artikel ist gel&ouml;scht. Bitte zuerst wiederherstellen.');
-        }
-    }
-    
-    $customer = array();
-    $compcust = array();
-    $query = mysql_query('SELECT * FROM `customer`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
-    while($fetch=mysql_fetch_array($query)) {
-        if(!$fetch['company'] || $fetch['company']=='') {
-            array_push($customer, $fetch);
-        } else {
-            array_push($compcust, $fetch);
         }
     }
     
@@ -72,16 +54,9 @@
                         <br />
                 	    
                 	    <label for="name">Name des Pakets</label><input id="packagename" name="data[packagename]" type="text" value="" class="required" minlength="2" />
-                	    <label for="datepicker">R&uuml;ckgabedatum (voraussichtlich)</label><input id="datepicker" name="data[datepicker]" type="text" value="<?=date('d.m.Y')?>" />
-                        <label for="name">Status</label>
-                        <select name="data[status]">
-                            <?php
-                                foreach($status as $s) {
-                                    echo '<option value="'.$s['id'].'">'.$s['status'].'</option>
-                                    ';
-                                }
-                            ?>
-                        </select>
+                	    <label for="datepicker">Ausleihdatum</label><input id="startdate" name="data[startdate]" type="text" value="<?=date('d.m.Y')?>" />
+                	    <label for="datepicker">R&uuml;ckgabedatum (voraussichtlich)</label><input id="duedate" name="data[duedate]" type="text" value="<?=date('d.m.Y', time()+86400)?>" />
+                        <input type="hidden" name="data[status]" value="6" />
                     </div>
                     
                         
@@ -89,60 +64,9 @@
                   
                     <h2>Kunde</h2>
                 	    <br />
-                	    <select id="customer" name="customer">
-                	        <option id="manual" value="manual">Manuell eingeben</option>
-                	        <option>--------------------</option>
-                                <?
-                                    foreach($compcust as $c) {
-                                        $selected = '';
-                                        if(isset($customer_id) && $customer_id==$c['id']) {
-                                            $selected = ' selected';
-                                        }
-                                        echo '<option value="'.$c['id'].'"'.$selected.'>'.$c['company'].' - '.$c['prename'].' '.$c['name'].'</option>';
-                                    }
+                	    <label for="customer">Ausleiher</label><input id="customer" name="data[customer]" type="text" value="" />
+                	    <label for="person">Ansprechperson</label><input id="person" name="data[person]" type="text" value="" />
 
-                                    foreach($customer as $c) {
-                                        $selected = '';
-                                        if(isset($customer_id) && $customer_id==$c['id']) {
-                                            $selected = ' selected';
-                                        }
-                                        echo '<option value="'.$c['id'].'"'.$selected.'>'.$c['prename'].' '.$c['name'].'</option>';
-                                    }
-                                ?>
-                	    </select>
-                	    
-                	    <div id="manual_form">
-                	    
-                	        <label for="name">Vorname</label><input id="prename" name="client[prename]" type="text" value="" class="required" minlength="2" />
-                	        <label for="name">Name</label><input id="name" name="client[name]" type="text" value="" class="required" minlength="2" />
-                	        <label for="name">Firma</label><input id="company" name="client[company]" type="text" value="" />
-                	        <label for="name">Adresse</label><input id="address" name="client[address]" type="text" value="" class="required" minlength="2" />
-                	        <label for="name">PLZ/Ort</label><input id="zip" name="client[zip]" type="text" value="" style="width: 4em;"/> <input id="location" name="client[location]" type="text" value="" class="required" minlength="2" style="width: 11.1em;" />
-                	        <label for="name">Telefon</label><input id="phone" name="client[phone]" type="text" value="" />
-                	        <label for="name">Mailadresse</label><input id="mail" name="client[mail]" type="text" value="" />
-                	        <label for="name">Web</label><input id="web" name="client[web]" type="text" value="" />
-                	        <input type="hidden" id="hidden" name="data[hidden]" value="false" />
-                	    
-                	    </div>
-                	    
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                if($('select.#customer').val()!='manual') {
-                                    $('#manual_form').hide();
-                                    $('#hidden').val('true');
-                                }
-                            });
-                            $('#customer').change(function() {
-                                if($(this).find('option:selected').attr('id')!='manual') {
-                                    $('#manual_form').hide();
-                                    $('#hidden').val('true');
-                                } else {
-                                    $('#manual_form').show();
-                                    $('#hidden').val('false');
-                                }
-                            });
-                        </script>
-                        
                   </div><!--/span-->
                     
                     <div class="span6">

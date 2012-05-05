@@ -47,7 +47,7 @@
                     <th>#</th>
                     <th>Barcode</th>
                     <th>Kategorie</th>
-                    <th class="big5">Artikel</th>
+                    <th>Artikel</th>
                     <th>Status</th>
                     <th class="tableicons"></th>
                 </tr>
@@ -61,6 +61,16 @@
         if($i['delete']==1) {
             $i['statusname'] = 'Gel&ouml;scht';
         }
+        
+        $status = $i['statusname'];
+        
+        if($i['status']==5) {
+            $query = mysql_query('SELECT * FROM `packageitem` WHERE `item_id`="'.$i['id'].'" AND `back`="0"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+            $packageitem = mysql_fetch_array($query);
+            $query = mysql_query('SELECT * FROM `package` WHERE `id`="'.$packageitem['package_id'].'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+            $package = mysql_fetch_array($query);
+            $status = $i['statusname'] . ' - <a href="'.dire.'package/detail/?id='.$package['id'].'">Paket ID '.$package['id'].' - '.$package['customer'];
+        } 
     
         echo '
                 <tr>
@@ -68,7 +78,7 @@
                     <td><a href="'.dire.'barcode/detail/?id='.$i['barcode'].'">'.$i['fullbarcode'].'</a></td>
                     <td><a href="'.dire.'category/?id='.$i['category'].'">'.$i['categoryname'].'</a></td>
                     <td><a href="'.dire.'item/detail/?id='.$i['id'].'">'.$i['name'].'</a></td>
-                    <td>' . $i['statusname'] . '</td>
+                    <td>' . $status . '</td>
                     <td>' . 
                     gen_right_btn('', dire . 'barcode/print/?id=' . $i['barcode'], 'icon-print icon-white', 'btn btn-mini btn-inverse', 'Barcode drucken', false) .
                     gen_right_btn('', 'edit/?id=' . $i['id'], 'icon-pencil icon-white', 'btn btn-mini btn-warning', 'Artikel bearbeiten', false) .

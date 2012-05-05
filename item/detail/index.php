@@ -8,17 +8,11 @@
 	
     $query = mysql_query('SELECT i.*, 
                                  b.barcode as fullbarcode,
-                                 z.name as condname,
-                                 p.name as placename,
                                  m.name as imgname,
                                  s.status as statusname
                             FROM `item` i
                             LEFT JOIN
                             `barcode` b ON i.barcode = b.id
-                            LEFT JOIN
-                            `buyplace` p ON (i.buyplace = p.id)
-                            LEFT JOIN
-                            `condition` z ON i.buycondition = z.id
                             LEFT JOIN
                             `status` s ON i.status = s.id
                             LEFT JOIN
@@ -45,6 +39,27 @@
                             WHERE `item_id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     while($fetch=mysql_fetch_array($query))
         array_push($category, $fetch);
+        
+    $history = array();
+    $query = mysql_query('SELECT pi.*,
+                                p.name as name,
+                                p.customer as customer,
+                                p.person as person,
+                                p.id as pid,
+                                p.startdate as startdate,
+                                p.duedate as duedate
+                                FROM `packageitem` pi
+                                LEFT JOIN
+                                `package` p ON pi.package_id = p.id
+                                WHERE pi.item_id="'.$id.'"
+                                AND pi.back="1"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+    while($fetch=mysql_fetch_array($query))
+        array_push($history, $fetch);
+        
+    if($item['status']==5) {
+        $query = mysql_query('SELECT * FROM `packageitem` WHERE `item_id`="'.$id.'" AND `back`="0"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+        $packageitem = mysql_fetch_array($query);
+    }
 
 	write_header($title);
 	
@@ -97,7 +112,14 @@ linenav('Zur&uuml;ck', '../', 'Paket erstellen', dire . 'package/new/?item_id=' 
     	    <dl>
     	        <dt>Name</dt><dd><?=$item['name']?></dd>
     	        <dt>Beschreibung</dt><dd><?=$item['comments']?></dd>
-    	        <dt>Status</dt><dd><?=$item['statusname']?></dd>
+    	        <dt>Status</dt><dd><?=$item['statusname']?>
+    	        <?php
+    	        
+    	            if($item['status']==5) {
+	                    echo '<strong> - <a href="'.dire.'package/detail/?id='.$packageitem['package_id'].'">Paket ID '.$packageitem['package_id'].'</a></strong>';
+    	            }
+    	            
+    	        ?></dd>
     	        <dt>Barcode</dt><dd><a href="<?=dire?>barcode/detail/?id=<?=$item['barcode']?>"><img src="<?=dire?>barcode/?code=<?=$item['fullbarcode']?>" alt="barcode" /></a></dd>
     	    </dl>
     	        	    
@@ -109,8 +131,8 @@ linenav('Zur&uuml;ck', '../', 'Paket erstellen', dire . 'package/new/?item_id=' 
             <dl>
                 <dt>Datum</dt><dd><?=date('d.m.Y', $item['buydate'])?></dd>
                 <dt>Preis</dt><dd>CHF <?=$item['buyprice']?></dd>
-                <dt>Zustand</dt><dd><?=$item['condname']?></dd>
-                <dt>Kaufort</dt><dd><?=$item['placename']?></dd>
+                <dt>Zustand</dt><dd><?=$item['buycondition']?></dd>
+                <dt>Kaufort</dt><dd><?=$item['buyplace']?></dd>
             </dl>
        	    
        	  </div><!--/span-->
@@ -138,8 +160,48 @@ linenav('Zur&uuml;ck', '../', 'Paket erstellen', dire . 'package/new/?item_id=' 
        	    -->
     	  </div><!--/span-->
     	</div>
+    	<div class="row-fluid">
+    	  <div class="span12" style="padding-top: 2em;">
+    	      <h2>Ausleih-History (nur vergangene)</h2>
+    	      
+    	      <table class="table table-striped" id="items">
+    	          <thead>
+    	              <tr>
+    	                  <th>#</th>
+    	                  <th>Name</th>
+    	                  <th>Ausleiher</th>
+    	                  <th>Ansprechperson</th>
+    	                  <th>Ausleihdauer</th>
+    	              </tr>
+    	          </thead>
+    	          <tbody id="itembody">
+    	      
+    	      
+                <?php
+                
+                    foreach($history as $h) {
+    	          
+                        echo '
+                                <tr id="'.$h['pid'].'">
+                                    <td>'.$h['pid'].'</td>
+                                    <td>'.$h['name'].'</td>
+                                    <td>'.$h['customer'].'</td>
+                                    <td>'.$h['person'].'</td>
+                                    <td>'.date('d.m.Y', $h['startdate']).' - '.date('d.m.Y', $h['duedate']).'</td>
+                                </tr>
+                            ';
+    	          
+    	          }
+    	          
+    	      ?>
+    	      
+    	      </tbody>
+    	      </table>
+                
+    	  </div>
+    	</div>
 	</div>
-		
+	
 	<?php
 	
 	write_footer();

@@ -4,27 +4,13 @@
     include(dire . '_env/exec.php');
 
     $data = vGET('data');
-    $data['date'] = explode('.', $data['datepicker']);
+    $data['startdate'] = explode('.', $data['startdate']);
+    $data['startdate'] = mktime(0,0,0,$data['startdate'][1],$data['startdate'][0],$data['startdate'][2]);
+    $data['duedate'] = explode('.', $data['duedate']);
+    $data['duedate'] = mktime(0,0,0,$data['duedate'][1],$data['duedate'][0],$data['duedate'][2]);
     $items = vGET('item', true, 'str');
-    $customer = vGET('customer', true, 'str');
     
-    if($data['hidden']==false || $customer=='manual') {
-        
-        $client = vGET('client');
-        
-        $result = gen_query($client);
-        $query = 'INSERT INTO `customer` ';
-        
-        mysql_query($query . $result['names'] . ') VALUES ' . $result['values'] . ')') OR sqlError(__FILE__,__LINE__,__FUNCTION__);
-        $customer_id = mysql_insert_id();
-        
-    } else {
-    
-        $customer_id = $customer;
-        
-    }
-    
-    $query = mysql_query('INSERT INTO `package` (name, duedate, customer_id, status) VALUES ("'.$data['packagename'].'", "'.mktime(0,0,0,$data['date'][1],$data['date'][0],$data['date'][2]).'", "'.$customer_id.'", "'.$data['status'].'")') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+    $query = mysql_query('INSERT INTO `package` (name, startdate, duedate, customer, person, status) VALUES ("'.$data['packagename'].'", "'.$data['startdate'].'", "'.$data['duedate'].'", "'.$data['customer'].'", "'.$data['person'].'", "'.$data['status'].'")') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     $package_id = mysql_insert_id();
 
     if(@is_array($items)) {

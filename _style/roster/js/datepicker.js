@@ -22,4 +22,6 @@ jQuery(function($){
 $.datepicker.setDefaults($.datepicker.regional['de-CH']);
 $(function() {
 	$( "#datepicker" ).datepicker();
+	$( "#startdate" ).datepicker();
+	$( "#duedate" ).datepicker();
 });

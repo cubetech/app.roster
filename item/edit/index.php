@@ -5,24 +5,12 @@
     
     $id = vGET('id');
         
-    $buyplace = array();
-    $query = mysql_query('SELECT * FROM `buyplace`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
-    while($fetch=mysql_fetch_array($query)) {
-        array_push($buyplace, $fetch);
-    } //while
-    
     $category = array();
     $query = mysql_query('SELECT * FROM `category`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     while($fetch=mysql_fetch_array($query)) {
         array_push($category, $fetch);
     } //while
 
-    $condition = array();
-    $query = mysql_query('SELECT * FROM `condition`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
-    while($fetch=mysql_fetch_array($query)) {
-        array_push($condition, $fetch);
-    } //while
-    
     $query = mysql_query('SELECT * FROM `item` WHERE `id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     $item = mysql_fetch_array($query);
     
@@ -45,11 +33,6 @@
     $query = mysql_query('SELECT * FROM `categoryitem` WHERE `item_id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     while($fetch=mysql_fetch_array($query))
         array_push($categoryitem, $fetch);
-        
-    $status = array();
-    $query = mysql_query('SELECT * FROM `status`') or sqlError(__FILE__,__LINE__,__FUNCTION__);
-    while($fetch=mysql_fetch_array($query))
-        array_push($status, $fetch);
         
     write_header($title);
     
@@ -107,19 +90,6 @@
                     
                     <label for="name">Name</label><input id="name" name="data[name]" type="text" value="<?=$item['name']?>" class="required" minlength="2" />
                     <label for="comments">Beschreibung</label><textarea name="data[comments]" id="comments"><?=$item['comments']?></textarea>
-                    <label for="comments">Status</label>
-                    <select name="data[status]">
-                        <?php
-                            foreach($status as $s) {
-                                $selected = '';
-                                if($item['status']==$s['id']) {
-                                    $selected = ' selected';
-                                }
-                                echo '<option value="'.$s['id'].'"'.$selected.'>'.$s['status'].'</option>
-                                ';
-                            }
-                        ?>
-                    </select>
                     <label for="barcode">Barcode</label><img src="<?=dire?>barcode/?code=<?=$barcode['barcode']?>" id="barcode" alt="barcode" />
                     <input type="hidden" name="barcode" value="<?=$code?>" />
                     
@@ -135,32 +105,10 @@
                 	                    <span class="add-on span3" style="margin-left: 0;">CHF</span>
                 	                    <input id="price" name="data[buyprice]" class="span6" type="text" value="<?=$item['buyprice']?>" />
                     </div>
-                    <label for="name">Zustand</label>
-                    <select name="data[buycondition]">
-                        <?php
-                            foreach($condition as $c) {
-                                $selected = '';
-                                if($item['buycondition']==$c['id']) {
-                                    $selected = ' selected';
-                                }
-                                echo '<option value="'.$c['id'].'"'.$selected.'>'.$c['name'].'</option>
-                                ';
-                            }
-                        ?>
-                    </select>
-                    <label for="name">Kaufort</label>
-                    <select name="data[buyplace]">
-                        <?php
-                            foreach($buyplace as $b) {
-                                $selected = '';
-                                if($item['buyplace']==$b['id']) {
-                                 $selected = ' selected';
-                                }
-                                echo '<option value="'.$b['id'].'"'.$selected.'>'.$b['name'].'</option>
-                                ';
-                            }
-                        ?>
-                    </select>
+                    <label for="buycondition">Zustand</label>
+                    <input id="buycondition" name="data[buycondition]" type="text" value="<?=$item['buycondition']?>" />
+                    <label for="buyplace">Kaufort</label>
+                    <input id="buyplace" name="data[buyplace]" type="text" value="<?=$item['buyplace']?>" />
                 	    
                 	  </div><!--/span-->
                   <div class="span4">

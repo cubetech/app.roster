@@ -25,15 +25,10 @@
 	
 	$package = array();
     $query = mysql_query('SELECT p.*, 
-                                 c.prename as prename,
-                                 c.name as surname,
-                                 c.company as company,
-                                 (SELECT COUNT(*) FROM packageitem WHERE package_id=p.id) as item,
+                                 (SELECT COUNT(*) FROM packageitem WHERE package_id=p.id AND back=0) as item,
                                  s.status as statusname,
                                  s.grade as grade
                             FROM package p 
-                            LEFT JOIN 
-                            customer c ON (p.customer_id = c.id)
                             LEFT JOIN
                             status s ON (p.status = s.id)
                             ' . $where . '
@@ -83,7 +78,7 @@
 	            <tr>
 	                <td>'.$p['id'].'</td>
 	                <td><a href="'.dire.'package/detail/?id='.$p['id'].'">'.$p['name'].'</a></td>
-	                <td><a href="'.dire.'customer/detail/?id='.$p['customer_id'].'">'.$p['prename'].' '.$p['surname'].'</a></td>
+	                <td>'.$p['customer'].'</td>
 	                <td>' . $p['item'] . '</td>
 	                <td>' . $p['statusname'] . '</td>
 	                <td>' .
