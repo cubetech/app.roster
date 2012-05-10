@@ -8,7 +8,10 @@
     $query = mysql_query('SELECT i.*, 
                                  c.name AS categoryname,
                                  b.barcode as fullbarcode,
-                                 s.status as statusname
+                                 s.status as statusname,
+                                 pi.package_id,
+                                 p.customer,
+                                 p.person
                             FROM item i 
                             LEFT JOIN 
                             category c ON (i.category = c.id)
@@ -16,6 +19,10 @@
                             barcode b ON (i.barcode = b.id)
                             LEFT JOIN
                             status s ON (i.status = s.id)
+                            LEFT JOIN
+                            packageitem as pi ON (pi.item_id = i.id) AND (pi.back = 0)
+                            LEFT JOIN
+                            package as p ON (p.id = pi.package_id)
                             WHERE i.status="5" AND i.delete="0"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     $items = array();
     while($fetch=mysql_fetch_array($query))
@@ -43,8 +50,8 @@
                 <tr>
                     <th>#</th>
                     <th>Barcode</th>
-                    <th>Kategorie</th>
-                    <th class="big5">Artikel</th>
+                    <th>Artikel</th>
+                    <th>Ausgeliehen an</th>
                     <th>Status</th>
                     <th class="tableicons"></th>
                 </tr>
@@ -63,8 +70,8 @@
                 <tr>
                     <td>'.$i['id'].'</td>
                     <td><a href="'.dire.'barcode/detail/?id='.$i['barcode'].'">'.$i['fullbarcode'].'</a></td>
-                    <td><a href="'.dire.'category/?id='.$i['category'].'">'.$i['categoryname'].'</a></td>
                     <td><a href="'.dire.'item/detail/?id='.$i['id'].'">'.$i['name'].'</a></td>
+                    <td><a href="'.dire.'package/detail/?id='.$i['package_id'].'">'.$i['customer'].', '.$i['person'].'</a></td>
                     <td>' . $i['statusname'] . '</td>
                     <td>' . 
                     gen_right_btn('', 'javascript:if(confirm(\'Sind Sie sicher?\')) { window.location = \'./return.php?barcode=' . $i['fullbarcode'] . '\'; }', 'icon-refresh icon-white', 'btn btn-mini btn-warning" id="'.$i['id'].'', 'Artikel zur&uuml;ckbuchen', false) .
