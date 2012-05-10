@@ -2,10 +2,7 @@
 
     define('dire', '../../');
     include(dire . '_env/exec.php');
-    
-    echo '<img src="'.dire.'barcode/?code=123456" />';
-    die();
-    
+        
     $code = vGET('bid');
     if(isset($code)) {
         $query = mysql_query('SELECT * FROM `item` WHERE `barcode`="'.$code.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
