@@ -20,6 +20,10 @@
                             WHERE i.id="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     $item = mysql_fetch_array($query);
     
+    if(!$item) {
+        error('transfer');
+    }
+    
     $customcontent = array();
     $query = mysql_query('SELECT c.*,
                                  f.fullname as fullname
@@ -63,14 +67,14 @@
 
 	write_header($title);
 	
-addbutton('Barcode drucken', dire . 'barcode/print/?id=' . $item['barcode'], 'btn-inverse', 'icon-print icon-white');
-addbutton('Bearbeiten', '../edit/?id=' . $id, 'btn-warning', 'icon-pencil icon-white');
-if($item['delete']==0) {
-    addbutton('L&ouml;schen', '../delete/?id=' . $id);
-} else {
-    addbutton('Wiederherstellen', '../delete/?id=' . $id, '', 'icon-ok');
-}
-linenav('Zur&uuml;ck', '../', 'Paket erstellen', dire . 'package/new/?item_id=' . $id, 'icon-chevron-left', 'icon-fire icon-white');
+    addbutton('Barcode drucken', dire . 'barcode/print/?id=' . $item['barcode'], 'btn-inverse', 'icon-print icon-white');
+    addbutton('Bearbeiten', '../edit/?id=' . $id, 'btn-warning', 'icon-pencil icon-white');
+    if($item['delete']==0) {
+        addbutton('L&ouml;schen', '../delete/?id=' . $id);
+    } else {
+        addbutton('Wiederherstellen', '../delete/?id=' . $id, '', 'icon-ok');
+    }
+    linenav('Zur&uuml;ck', '../', 'Paket erstellen', dire . 'package/new/?item_id=' . $id, 'icon-chevron-left', 'icon-fire icon-white');
 	
 	?>
 	
