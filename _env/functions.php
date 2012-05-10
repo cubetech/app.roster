@@ -167,12 +167,28 @@
             $code = code13_check(substr(number_format(time() * rand(),0,'',''),0,12));
         }
         $query = mysql_query('SELECT * FROM barcode WHERE `barcode`="'.$code.'"') OR sqlError(__FILE__,__LINE__,__FUNCTION__);
-        $fetch = mysql_fetch_array($query);
-        if($fetch)
+        $barcode = mysql_fetch_array($query);
+        $query = mysql_query('SELECT * FROM `item` WHERE `barcode`="'.$barcode['id'].'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+        $item = mysql_fetch_array($query);
+        if($barcode && $item) {
             $code = code13();
-        else
+        } elseif($barcode) {
+            return $barcode['id'];
+        } else {
             $query = mysql_query('INSERT INTO barcode (barcode, time) VALUES ("'.$code.'", "'.time().'")') OR sqlError(__FILE__,__LINE__,__FUNCTION__);
             return mysql_insert_id();
+        }
+        
+    }
+    
+    function code13code() {
+    
+        $id = code13();
+        
+        $query = mysql_query('SELECT * FROM `barcode` WHERE `id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+        $barcode = mysql_fetch_array($query);
+        
+        return $barcode['barcode'];
         
     }
     
