@@ -3,7 +3,7 @@
     define('dire', '../');
     include(dire . '_env/exec.php');
     
-    require(dire . '_env/addons/php-barcode/php-barcode.php');
+    require(dire . '_env/addons/barcode39/barcode39.php');
 
     function getvar($name){
         global $_GET, $_POST;
@@ -20,11 +20,13 @@
         $id=getvar('id');
     }
     if ($code) {
-        barcode_print($code,getvar('encoding'),getvar('scale'),getvar('mode'));
+        $bc = new Barcode39($code);
+        $bc->draw();
     } elseif ($id) {
         $query = mysql_query('SELECT * FROM `barcode` WHERE `id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
         $barcode = mysql_fetch_array($query);
-        barcode_print($barcode['barcode']);
+        $bc = new Barcode39($barcode['barcode']);
+        $bc->draw();
     } else {
     
         $barcode = array();
@@ -39,6 +41,7 @@
     
         write_header('Barcodes');
         
+        addbutton('Seite mit Barcodes drucken', dire . 'barcode/print/', 'btn-inverse', 'icon-print icon-white');
         linenav('Dashboard', dire, 'Barcodes aufr&auml;umen', dire . 'barcode/cleanup/', 'icon-chevron-left', 'icon-fire icon-white');
         
         ?>
