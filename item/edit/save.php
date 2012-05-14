@@ -6,6 +6,12 @@
     $data = vGET('data');
     $id = vGET('id');
     
+    if(isset($data['barcode']) && $data['barcode']!='') {
+        $data['barcode'] = code13($data['barcode']);
+    } else {
+        unset($data['barcode']);
+    }
+    
     $result = gen_update_query($data);
     $query = 'UPDATE item SET ';
         

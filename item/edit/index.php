@@ -91,7 +91,7 @@
                     <label for="name">Name</label><input id="name" name="data[name]" type="text" value="<?=$item['name']?>" class="required" minlength="2" />
                     <label for="comments">Beschreibung</label><textarea name="data[comments]" id="comments"><?=$item['comments']?></textarea>
                     <label for="barcode">Barcode</label><img src="<?=dire?>barcode/?code=<?=$barcode['barcode']?>" id="barcode" alt="barcode" />
-                    <input type="hidden" name="barcode" value="<?=$code?>" />
+                    <label for="barcode">Neuer Barcode</label><input type="text" name="data[barcode]" />
                     
                   </div><!--/span-->
                   <div class="span4">
