@@ -74,7 +74,7 @@
                     <td><a href="'.dire.'package/detail/?id='.$i['package_id'].'">'.$i['customer'].', '.$i['person'].'</a></td>
                     <td>' . $i['statusname'] . '</td>
                     <td>' . 
-                    gen_right_btn('', 'javascript:if(confirm(\'Sind Sie sicher?\')) { window.location = \'./return.php?barcode=' . $i['fullbarcode'] . '\'; }', 'icon-refresh icon-white', 'btn btn-mini btn-warning" id="'.$i['id'].'', 'Artikel zur&uuml;ckbuchen', false) .
+                    gen_right_btn('', 'javascript:if(confirm(\'Sind Sie sicher?\')) { window.location = \'./return.php?id=' . $i['id'] . '\'; }', 'icon-refresh icon-white', 'btn btn-mini btn-warning" id="'.$i['id'].'', 'Artikel zur&uuml;ckbuchen', false) .
                     '</td>
                 </tr>
             ';
