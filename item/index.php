@@ -12,12 +12,9 @@
     }
 
     $query = mysql_query('SELECT i.*, 
-                                 c.name AS categoryname,
                                  b.barcode as fullbarcode,
                                  s.status as statusname
                             FROM item i 
-                            LEFT JOIN 
-                            category c ON (i.category = c.id)
                             LEFT JOIN
                             barcode b ON (i.barcode = b.id)
                             LEFT JOIN
@@ -71,13 +68,30 @@
             $query = mysql_query('SELECT * FROM `package` WHERE `id`="'.$packageitem['package_id'].'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
             $package = mysql_fetch_array($query);
             $status = $i['statusname'] . ' - <a href="'.dire.'package/detail/?id='.$package['id'].'">Paket ID '.$package['id'].' - '.$package['customer'];
-        } 
+        }
+        
+        $ci = array();
+        $query = mysql_query('SELECT ci.*, 
+                                     c.name
+                                FROM categoryitem ci 
+                                LEFT JOIN
+                                category c ON (c.id = ci.category_id)
+                                WHERE ci.item_id = '.$i['id']) or sqlError(__FILE__,__LINE__,__FUNCTION__);
+        while($fetch=mysql_fetch_array($query))
+            array_push($ci, $fetch);
     
         echo '
                 <tr>
                     <td>'.$i['id'].'</td>
                     <td><a href="'.dire.'barcode/detail/?id='.$i['barcode'].'">'.$i['fullbarcode'].'</a></td>
-                    <td><a href="'.dire.'category/?id='.$i['category'].'">'.$i['categoryname'].'</a></td>
+                    <td>';
+        for($i=0; $i<count($ci); $i++) {
+            echo $ci[$i]['name'];
+            if($i<(count($ci)-1)) {
+                echo ', ';
+            }
+        }
+        echo '      </td>
                     <td><a href="'.dire.'item/detail/?id='.$i['id'].'">'.$i['name'].'</a></td>
                     <td>' . $status . '</td>
                     <td>' . 
