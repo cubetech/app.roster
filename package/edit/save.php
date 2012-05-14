@@ -45,7 +45,6 @@
     }
         
     
-    #header('Location: ../detail/?id='.$package_id);
-    header('Location: ../');
+    header('Location: ../detail/?id='.$package_id);
     
 ?>
