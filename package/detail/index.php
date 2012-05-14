@@ -24,6 +24,10 @@
                                 WHERE p.package_id="'.$id.'" AND p.back=0') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     while($fetch=mysql_fetch_array($query))
         array_push($item, $fetch);
+        
+    if($package['status']==8) {
+        $title .= ' (zur&uuml;ckgebucht)';
+    }
     
     write_header($title);
     
@@ -34,7 +38,10 @@
     } else {
         addbutton('Wiederherstellen', '../delete/?id=' . $id, '', 'icon-ok');
     }
-    linenav('Zur&uuml;ck', '../', 'Paket zur&uuml;ckbuchen', 'javascript:if(confirm(\'Sind Sie sicher?\')) { window.location = \'' . dire . 'package/return/?id=' . $id . '\'; }', 'icon-chevron-left', 'icon-refresh icon-white');
+    if($package['status']!=8) {
+        addbutton('Paket zur&uuml;ckbuchen', 'javascript:if(confirm(\'Sind Sie sicher?\')) { window.location = \'' . dire . 'package/return/?id=' . $id . '\'; }', 'btn-primary', 'icon-refresh icon-white');
+    }
+    linenav('Zur&uuml;ck', '../');
     
     ?>
         </div>
@@ -55,6 +62,11 @@
                         <dl>
                             <dt>Name des Pakets</dt><dd><?=$package['name']?></dd>
                             <dt>Geplante Ausleihdauer</dt><dd><?=date('d.m.Y', $package['startdate'])?> - <?=date('d.m.Y', $package['duedate'])?></dd>
+                            <?php
+                                if(isset($package['returndate']) && $package['returndate']>0 && $package['status']==8) {
+                                    echo '<dt>Zur&uuml;ckgebucht am</dt><dd>'.date('d.m.Y H:i', $package['returndate']).'</dd>';
+                                }
+                            ?>
                         </dl>
                         
                     </div>
@@ -98,7 +110,7 @@
                                         <td><a href="'.dire.'item/detail/?id='.$i['id'].'">'.$i['name'].'</a></td>
                                         <td style="white-space: nowrap;"><nobr>' . $i['statusname'] . '</nobr></td>
                                         <td>' . 
-                                        gen_right_btn('', 'javascript:if(confirm(\'Sind Sie sicher?\')) { window.location = \'./return/?id=' . $i['id'] . '&pid=' . $id . '\'; }', 'icon-refresh icon-white', 'btn btn-mini btn-warning" id="'.$i['id'].'', 'Artikel zur&uuml;ckbuchen', false) . '</td>
+                                        gen_right_btn('', 'javascript:if(confirm(\'Sind Sie sicher?\')) { window.location = \'' . dire . 'return/return.php?id=' . $i['barcode'] . '&pid=' . $id . '\'; }', 'icon-refresh icon-white', 'btn btn-mini btn-warning" id="'.$i['id'].'', 'Artikel zur&uuml;ckbuchen', false) . '</td>
                                     </tr>
                                 ';
 
