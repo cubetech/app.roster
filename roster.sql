@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 14. Mai 2012 um 13:36
+-- Erstellungszeit: 14. Mai 2012 um 14:02
 -- Server Version: 5.5.9
 -- PHP-Version: 5.3.6
 
@@ -39,6 +39,11 @@ CREATE TABLE `auth` (
   UNIQUE KEY `sid` (`sid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Daten für Tabelle `auth`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -50,7 +55,12 @@ CREATE TABLE `barcode` (
   `barcode` varchar(255) NOT NULL,
   `time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Daten für Tabelle `barcode`
+--
+
 
 -- --------------------------------------------------------
 
@@ -62,7 +72,15 @@ CREATE TABLE `category` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `category`
+--
+
+INSERT INTO `category` VALUES(1, 'Macbook');
+INSERT INTO `category` VALUES(2, 'Auto');
+INSERT INTO `category` VALUES(3, 'Fenster');
 
 -- --------------------------------------------------------
 
@@ -75,7 +93,12 @@ CREATE TABLE `categoryitem` (
   `category_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
+
+--
+-- Daten für Tabelle `categoryitem`
+--
+
 
 -- --------------------------------------------------------
 
@@ -89,7 +112,12 @@ CREATE TABLE `customcontent` (
   `value_id` int(11) NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Daten für Tabelle `customcontent`
+--
+
 
 -- --------------------------------------------------------
 
@@ -105,7 +133,14 @@ CREATE TABLE `customfield` (
   `fullname` varchar(255) NOT NULL,
   `values` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Daten für Tabelle `customfield`
+--
+
+INSERT INTO `customfield` VALUES(1, 'item', 'text', 'waek', 'Ein neues Feld', '');
+INSERT INTO `customfield` VALUES(2, 'item', 'text', 'bla', 'Höhö', '');
 
 -- --------------------------------------------------------
 
@@ -117,7 +152,12 @@ CREATE TABLE `image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+--
+-- Daten für Tabelle `image`
+--
+
 
 -- --------------------------------------------------------
 
@@ -139,7 +179,12 @@ CREATE TABLE `item` (
   `delete` int(1) NOT NULL DEFAULT '0',
   `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+
+--
+-- Daten für Tabelle `item`
+--
+
 
 -- --------------------------------------------------------
 
@@ -158,7 +203,12 @@ CREATE TABLE `package` (
   `status` int(11) NOT NULL DEFAULT '1',
   `delete` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+
+--
+-- Daten für Tabelle `package`
+--
+
 
 -- --------------------------------------------------------
 
@@ -172,7 +222,12 @@ CREATE TABLE `packageitem` (
   `item_id` int(11) NOT NULL,
   `back` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Daten für Tabelle `packageitem`
+--
+
 
 -- --------------------------------------------------------
 
@@ -186,7 +241,16 @@ CREATE TABLE `status` (
   `type` varchar(255) NOT NULL DEFAULT 'item',
   `grade` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Daten für Tabelle `status`
+--
+
+INSERT INTO `status` VALUES(1, 'im Lager', 'item', 'active');
+INSERT INTO `status` VALUES(5, 'Ausgelehnt', 'item', 'passive');
+INSERT INTO `status` VALUES(6, 'Ausgelehnt', 'package', 'active');
+INSERT INTO `status` VALUES(8, 'Zurück', 'package', 'passive');
 
 -- --------------------------------------------------------
 
@@ -204,4 +268,9 @@ CREATE TABLE `users` (
   `status` enum('false','true') NOT NULL DEFAULT 'false',
   `lastlogin` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+
+--
+-- Daten für Tabelle `users`
+--
+
