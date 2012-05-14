@@ -14,7 +14,7 @@
         mysql_query('UPDATE `item` SET `status`=1 WHERE `id`="'.$i['item_id'].'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     }
         
-    mysql_query('UPDATE `package` SET `status`=8 WHERE `id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+    mysql_query('UPDATE `package` SET `status`=8, `returndate`="'.time().'" WHERE `id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     mysql_query('UPDATE `packageitem` SET `back`="1" WHERE `package_id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
     
     set_message('Erledigt!', 'Das Paket mit der <strong>ID ' . $id . '</strong> wurde zur&uuml;ckgebucht.', 'alert-success');
