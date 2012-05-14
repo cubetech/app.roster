@@ -46,10 +46,10 @@
         
         ?>
             
-            Es sind aktuell <strong><?=$count?> Barcodes</strong> vorhanden.
+            Es sind aktuell <strong><?php print $count?> Barcodes</strong> vorhanden.
             <br /><br />
     
-        <?
+        <?php
         
         foreach($barcode as $b) {
             $query = mysql_query('SELECT * FROM `item` WHERE `barcode`="'.$b['id'].'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);

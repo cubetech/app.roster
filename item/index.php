@@ -23,6 +23,7 @@
                             LEFT JOIN
                             status s ON (i.status = s.id)
                             ' . $where) or sqlError(__FILE__,__LINE__,__FUNCTION__);
+                            
     $items = array();
     while($fetch=mysql_fetch_array($query))
         array_push($items, $fetch);

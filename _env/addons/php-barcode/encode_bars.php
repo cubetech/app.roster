@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 
  * Built-In Encoders

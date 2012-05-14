@@ -43,7 +43,7 @@
         <div class="row-fluid">
         	
         	<div class="span12">
-                <h1><?=$title?></h1>
+                <h1><?php print $title?></h1>
                 
                 <hr>
                 
@@ -54,8 +54,8 @@
                         <br />
                 	    
                 	    <label for="name">Name des Pakets</label><input id="packagename" name="data[packagename]" type="text" value="" class="required" minlength="2" />
-                	    <label for="datepicker">Ausleihdatum</label><input id="startdate" name="data[startdate]" type="text" value="<?=date('d.m.Y')?>" />
-                	    <label for="datepicker">R&uuml;ckgabedatum (voraussichtlich)</label><input id="duedate" name="data[duedate]" type="text" value="<?=date('d.m.Y', time()+86400)?>" />
+                	    <label for="datepicker">Ausleihdatum</label><input id="startdate" name="data[startdate]" type="text" value="<?php print date('d.m.Y')?>" />
+                	    <label for="datepicker">R&uuml;ckgabedatum (voraussichtlich)</label><input id="duedate" name="data[duedate]" type="text" value="<?php print date('d.m.Y', time()+86400)?>" />
                         <input type="hidden" name="data[status]" value="6" />
                     </div>
                     

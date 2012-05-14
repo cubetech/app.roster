@@ -8,14 +8,14 @@
     
     $id = vGET('id');
     
-    if($id) { 
+    if(isset($id) && $id) { 
     
         $query = mysql_query('SELECT * FROM `barcode` WHERE `id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
         $barcode = mysql_fetch_array($query);
     
     }
     
-    if($barcode) {
+    if(isset($barcode) && $barcode) {
     
         $pdf = new FPDF($cfg['pdf']['small']['orientation'], 'mm', array($cfg['pdf']['small']['width'], $cfg['pdf']['small']['height']));
 
@@ -59,7 +59,7 @@
     $w = $pdf->w * $k; // get page width pixel
     $h = $pdf->h * $k; // get page height pixel
     
-    if($barcode) {
+    if(isset($barcode) && $barcode) {
     
         $img = createImg(true, $barcode['barcode']);
         $x = (($w/2) - ($img['size'][0]/2)) / $k; // set x-pos page mm

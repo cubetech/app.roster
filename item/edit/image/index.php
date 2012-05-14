@@ -15,7 +15,7 @@
                 
         if(strlen($name)) {
             list($txt, $ext) = explode(".", $name);
-            if(in_array($ext,$valid_formats)) {
+            if(in_array(strtolower($ext),$valid_formats)) {
                 if($size<$imagesize) { // Image size max
                     $actual_image_name = substr(number_format(time() * rand(),0,'',''),0,16).".".$ext;
                     $tmp = $_FILES['photoimg']['tmp_name'];
