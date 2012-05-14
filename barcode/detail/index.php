@@ -24,13 +24,13 @@
 		<div class="well sidebar-nav">
             <ul class="nav nav-list">
             	<li class="nav-header">Barcode</li>
-            	<li><img class="preview" src="<?=dire?>barcode/?code=<?=$barcode['barcode']?>" alt="barcode" /></li>
+            	<li><img class="preview" src="<?php print dire ?>barcode/?code=<?php print $barcode['barcode']?>" alt="barcode" /></li>
             </ul>
 		</div>
 	</div>
 	
 	<div class="span9">
-	    <h1><?=$title?></h1>
+	    <h1><?php $title?></h1>
 	    
 	    <hr>
 	
@@ -40,8 +40,8 @@
     	    <h2>Infos</h2>
     	    
     	    <dl>
-    	        <dt>ID</dt><dd><?=$barcode['id']?></dd>
-    	        <dt>Generiert am</dt><dd><?=date('d.m.Y H:i', $barcode['time'])?> Uhr</dd>
+    	        <dt>ID</dt><dd><?php print $barcode['id']?></dd>
+    	        <dt>Generiert am</dt><dd><?php print date('d.m.Y H:i', $barcode['time'])?> Uhr</dd>
     	    </dl>
     	        	    
     	  </div><!--/span-->

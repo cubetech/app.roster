@@ -12,6 +12,7 @@
 - Create a MySQL database with the attached SQL dump
 - Create new config file by copy the _env/config.default.php to config.php
 - Set your MySQL credentials in the config.php
+- Make _image/item writeable to the server.
 - Enjoy!
 
 ### Copyright 
