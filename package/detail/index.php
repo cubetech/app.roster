@@ -49,7 +49,7 @@
         <div class="row-fluid">
         	
         	<div class="span12">
-                <h1><?=$title?></h1>
+                <h1><?php print $title?></h1>
                 
                 <hr>
                 
@@ -60,8 +60,8 @@
                         <br />
                         
                         <dl>
-                            <dt>Name des Pakets</dt><dd><?=$package['name']?></dd>
-                            <dt>Geplante Ausleihdauer</dt><dd><?=date('d.m.Y', $package['startdate'])?> - <?=date('d.m.Y', $package['duedate'])?></dd>
+                            <dt>Name des Pakets</dt><dd><?php print $package['name']?></dd>
+                            <dt>Geplante Ausleihdauer</dt><dd><?php print date('d.m.Y', $package['startdate'])?> - <?php print date('d.m.Y', $package['duedate'])?></dd>
                             <?php
                                 if(isset($package['returndate']) && $package['returndate']>0 && $package['status']==8) {
                                     echo '<dt>Zur&uuml;ckgebucht am</dt><dd>'.date('d.m.Y H:i', $package['returndate']).'</dd>';
@@ -78,8 +78,8 @@
                 	    <br />
 
                         <dl>
-                            <dt>Ausleiher</dt><dd><?=$package['customer']?></dd>
-                            <dt>Ansprechperson</dt><dd><?=$package['person']?></dd>
+                            <dt>Ausleiher</dt><dd><?php print $package['customer']?></dd>
+                            <dt>Ansprechperson</dt><dd><?php print $package['person']?></dd>
                         </dl>
 
                   </div><!--/span-->

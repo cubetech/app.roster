@@ -1,4 +1,4 @@
-<?
+<?php
 /*
  * PHP-Barcode 0.4
  

@@ -17,8 +17,8 @@
     		<div class="well sidebar-nav">
     			<ul class="nav nav-list">
     				<li class="nav-header">Statistik</li>
-    				<li><a href="item/"><?=$itema[0]?> Artikel</a></li>
-    				<li><a href="package/"><?=$package[0]?> Ausleihpakete</a></li>
+    				<li><a href="item/"><?php print $itema[0]?> Artikel</a></li>
+    				<li><a href="package/"><?php print $package[0]?> Ausleihpakete</a></li>
     			</ul>
     		</div>
     	</div>

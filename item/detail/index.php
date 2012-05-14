@@ -104,7 +104,7 @@
 	</div>
 	
 	<div class="span9">
-	    <h1><?=$title?></h1>
+	    <h1><?php print $title?></h1>
 	    
 	    <hr>
 	
@@ -114,9 +114,9 @@
     	    <h2>Artikel</h2>
     	    
     	    <dl>
-    	        <dt>Name</dt><dd><?=$item['name']?></dd>
-    	        <dt>Beschreibung</dt><dd><?=$item['comments']?></dd>
-    	        <dt>Status</dt><dd><?=$item['statusname']?>
+    	        <dt>Name</dt><dd><?php print $item['name']?></dd>
+    	        <dt>Beschreibung</dt><dd><?php print $item['comments']?></dd>
+    	        <dt>Status</dt><dd><?php print $item['statusname']?>
     	        <?php
     	        
     	            if($item['status']==5) {
@@ -124,7 +124,7 @@
     	            }
     	            
     	        ?></dd>
-    	        <dt>Barcode</dt><dd><a href="<?=dire?>barcode/detail/?id=<?=$item['barcode']?>"><img src="<?=dire?>barcode/?code=<?=$item['fullbarcode']?>" alt="barcode" /></a></dd>
+    	        <dt>Barcode</dt><dd><a href="<?php print dire?>barcode/detail/?id=<?php print $item['barcode']?>"><img src="<?php print dire?>barcode/?code=<?php print $item['fullbarcode']?>" alt="barcode" /></a></dd>
     	    </dl>
     	        	    
     	  </div><!--/span-->
@@ -133,10 +133,10 @@
     	    <h2>Anschaffung</h2>
 
             <dl>
-                <dt>Datum</dt><dd><?=date('d.m.Y', $item['buydate'])?></dd>
-                <dt>Preis</dt><dd>CHF <?=$item['buyprice']?></dd>
-                <dt>Zustand</dt><dd><?=$item['buycondition']?></dd>
-                <dt>Kaufort</dt><dd><?=$item['buyplace']?></dd>
+                <dt>Datum</dt><dd><?php print date('d.m.Y', $item['buydate'])?></dd>
+                <dt>Preis</dt><dd>CHF <?php print $item['buyprice']?></dd>
+                <dt>Zustand</dt><dd><?php print $item['buycondition']?></dd>
+                <dt>Kaufort</dt><dd><?php print $item['buyplace']?></dd>
             </dl>
        	    
        	  </div><!--/span-->
@@ -164,6 +164,11 @@
        	    -->
     	  </div><!--/span-->
     	</div>
+    	
+    	<?php
+    		if(count($history) > 0){
+    	?>
+    	
     	<div class="row-fluid">
     	  <div class="span12" style="padding-top: 2em;">
     	      <h2>Ausleih-History (nur vergangene)</h2>
@@ -204,6 +209,11 @@
                 
     	  </div>
     	</div>
+    	
+    	<?php
+    		}//if
+    	?>
+    	
 	</div>
 	
 	<?php
