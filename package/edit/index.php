@@ -45,7 +45,7 @@
         <div class="row-fluid">
         	
         	<div class="span12">
-                <h1><?=$title?></h1>
+                <h1><?php print $title?></h1>
                 
                 <hr>
                 
@@ -55,8 +55,8 @@
                         <h2>Ausleihpaket</h2>
                         <br />
                 	    
-                	    <label for="name">Name des Pakets</label><input id="packagename" name="data[packagename]" type="text" value="<?=$package['name']?>" class="required" minlength="2" />
-                	    <label for="datepicker">R&uuml;ckgabedatum (voraussichtlich)</label><input id="datepicker" name="data[datepicker]" type="text" value="<?=date('d.m.Y', $package['duedate'])?>" />
+                	    <label for="name">Name des Pakets</label><input id="packagename" name="data[packagename]" type="text" value="<?php print $package['name']?>" class="required" minlength="2" />
+                	    <label for="datepicker">R&uuml;ckgabedatum (voraussichtlich)</label><input id="datepicker" name="data[datepicker]" type="text" value="<?php print date('d.m.Y', $package['duedate'])?>" />
                         <label for="name">Status</label>
                         <select name="data[status]">
                             <?php
@@ -78,9 +78,9 @@
                     <h2>Kunde</h2>
                 	    <br />
 
-                	    <label for="customer">Ausleiher</label><input id="customer" name="data[customer]" type="text" value="<?=$package['customer']?>" />
-                	    <label for="person">Ansprechperson</label><input id="person" name="data[person]" type="text" value="<?=$package['person']?>" />
-                	    <input type="hidden" name="data[id]" value="<?=$package['id']?>" />
+                	    <label for="customer">Ausleiher</label><input id="customer" name="data[customer]" type="text" value="<?php print $package['customer']?>" />
+                	    <label for="person">Ansprechperson</label><input id="person" name="data[person]" type="text" value="<?php print $package['person']?>" />
+                	    <input type="hidden" name="data[id]" value="<?php print $package['id']?>" />
 
                   </div><!--/span-->
                     

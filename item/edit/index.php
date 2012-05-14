@@ -41,13 +41,13 @@
     ?>
         </div>
         <form id="form" name="form" method="POST" enctype="multipart/form-data" action="save.php">
-        <input type="hidden" name="id" value="<?=$id?>" />
+        <input type="hidden" name="id" value="<?php print $id?>" />
         <div class="row-fluid">
         	<div class="span3">
         		<div class="well sidebar-nav">
         			<ul class="nav nav-list">
         				<li class="nav-header">Kategorie</li>
-        				<?
+        				<?php
         				    foreach($category as $c) {
         				        $checked = '';
         				        $query = mysql_query('SELECT * FROM `categoryitem` WHERE `category_id`="'.$c['id'].'" AND `item_id`="'.$id.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
@@ -78,7 +78,7 @@
         	</div>
         	
         	<div class="span9">
-                <h1><?=$title?></h1>
+                <h1><?php print $title?></h1>
                 
                 <hr>
                 
@@ -88,9 +88,9 @@
                     <h2>Artikel</h2>
                     <br />
                     
-                    <label for="name">Name</label><input id="name" name="data[name]" type="text" value="<?=$item['name']?>" class="required" minlength="2" />
-                    <label for="comments">Beschreibung</label><textarea name="data[comments]" id="comments"><?=$item['comments']?></textarea>
-                    <label for="barcode">Barcode</label><img src="<?=dire?>barcode/?code=<?=$barcode['barcode']?>" id="barcode" alt="barcode" />
+                    <label for="name">Name</label><input id="name" name="data[name]" type="text" value="<?php print $item['name']?>" class="required" minlength="2" />
+                    <label for="comments">Beschreibung</label><textarea name="data[comments]" id="comments"><?php print $item['comments']?></textarea>
+                    <label for="barcode">Barcode</label><img src="<?php print dire?>barcode/?code=<?php print $barcode['barcode']?>" id="barcode" alt="barcode" />
                     <label for="barcode">Neuer Barcode</label><input type="text" name="data[barcode]" />
                     
                   </div><!--/span-->
@@ -99,16 +99,16 @@
                     <h2>Anschaffung</h2>
                 	    <br />
                 	    
-                	    <label for="datepicker">Datum</label><input id="datepicker" name="data[datepicker]" type="text" value="<?=date('d.m.Y', $item['buydate'])?>" />
+                	    <label for="datepicker">Datum</label><input id="datepicker" name="data[datepicker]" type="text" value="<?php print date('d.m.Y', $item['buydate'])?>" />
                 	    <label for="price">Preis</label>
                 	    <div class="input-prepend">
                 	                    <span class="add-on span3" style="margin-left: 0;">CHF</span>
-                	                    <input id="price" name="data[buyprice]" class="span6" type="text" value="<?=$item['buyprice']?>" />
+                	                    <input id="price" name="data[buyprice]" class="span6" type="text" value="<?php print $item['buyprice']?>" />
                     </div>
                     <label for="buycondition">Zustand</label>
-                    <input id="buycondition" name="data[buycondition]" type="text" value="<?=$item['buycondition']?>" />
+                    <input id="buycondition" name="data[buycondition]" type="text" value="<?php print $item['buycondition']?>" />
                     <label for="buyplace">Kaufort</label>
-                    <input id="buyplace" name="data[buyplace]" type="text" value="<?=$item['buyplace']?>" />
+                    <input id="buyplace" name="data[buyplace]" type="text" value="<?php print $item['buyplace']?>" />
                 	    
                 	  </div><!--/span-->
                   <div class="span4">
