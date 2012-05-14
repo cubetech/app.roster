@@ -80,7 +80,7 @@
                     <label for="name">Name</label><input id="name" name="data[name]" type="text" value="" class="required" minlength="2" />
                     <label for="comments">Beschreibung</label><textarea name="data[comments]" id="comments"></textarea>
                     <label for="barcode">Barcode</label><img src="<?=dire?>barcode/?code=<?=$barcode['barcode']?>" id="barcode" alt="barcode" />
-                    <input type="hidden" name="barcode" value="<?=$code?>" />
+                    <input type="hidden" name="data[barcode]" value="<?=$code?>" />
                     
                   </div><!--/span-->
                   <div class="span4">
