@@ -93,7 +93,7 @@
                 <li>
                 <?php
                     if(isset($item['imgname']) && $item['imgname']!='') {
-                        echo '<img class="preview" src="'.dire.'_image/item/'.$item['imgname'].'" alt="'.$item['imgname'].'" />';
+                        echo '<a href="'. dire. '_image/item/'. $item["imgname"].'" target="_blank"><img class="preview" src="'.dire.'_image/item/'.$item['imgname'].'" alt="'.$item['imgname']. '" /></a>';
                     } else {
                         echo '<i>Kein Bild vorhanden</i>';
                     }
