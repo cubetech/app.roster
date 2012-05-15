@@ -64,15 +64,15 @@
         			<ul class="nav nav-list">
                         <li class="nav-header">Bild einf&uuml;gen</li>
                         <li><input type="file" name="photoimg" id="photoimg" /></li>
-                        <li><div id='preview'>
+                        <li>
                         <?php
                             if(isset($item['image']) && $item['image']!='') {
                                 $query = mysql_query('SELECT * FROM `image` WHERE `id`="'.$item['image'].'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
                                 $image = mysql_fetch_array($query);
-                                echo '<img src="'.dire.'_image/item/'.$image['name'].'" alt="'.$image['name'].'" />';
+                                echo '<img src="'.dire.'_image/item/'.$image['name'].'" alt="'.$image['name'].'" style="max-width: 95%;" />';
                             }
                         ?>
-                        </div></li>
+                        </li>
         			</ul>
         		</div>
         	</div>
