@@ -255,7 +255,7 @@
             }
         
             $query .= '
-            '.$name.'="'.$value.'",';
+            '.$name.'="'.mysql_real_escape_string($value).'",';
         }
                 
         if(substr($query, -1, 1)==',') {

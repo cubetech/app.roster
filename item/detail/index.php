@@ -115,7 +115,7 @@
     	    
     	    <dl>
     	        <dt>Name</dt><dd><?php print $item['name']?></dd>
-    	        <dt>Beschreibung</dt><dd><?php print $item['comments']?></dd>
+    	        <dt>Beschreibung</dt><dd><?php print preg_replace("/\\r\\n/", "</br >",$item['comments'])?></dd>
     	        <dt>Status</dt><dd><?php print $item['statusname']?>
     	        <?php
     	        
