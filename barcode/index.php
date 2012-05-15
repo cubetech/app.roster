@@ -2,8 +2,8 @@
 
     define('dire', '../');
     include(dire . '_env/exec.php');
-    
-    require(dire . '_env/addons/barcode39/barcode39.php');
+
+    require(dire . '_env/addons/Barcode39/Barcode39.php');
 
     function getvar($name){
         global $_GET, $_POST;
