@@ -3,7 +3,12 @@
     define('dire', '../');
     include(dire . '_env/exec.php');
     
+    print "Hello";
+        
     require(dire . '_env/addons/barcode39/barcode39.php');
+
+print "yes";
+    
 
     function getvar($name){
         global $_GET, $_POST;
