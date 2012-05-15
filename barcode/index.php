@@ -2,12 +2,9 @@
 
     define('dire', '../');
     include(dire . '_env/exec.php');
-    
-    print "Hello";
+	print "hello"; exit;
         
     require(dire . '_env/addons/barcode39/barcode39.php');
-
-print "yes";
     
 
     function getvar($name){
