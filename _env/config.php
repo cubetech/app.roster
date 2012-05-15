@@ -45,8 +45,7 @@ $cfg = array(
 );
 
 
-if($_SERVER['HTTP_HOST'] != 'lager.ticketpark.ch'){
+//Include local config if necessary
+if($_SERVER['HTTP_HOST'] == '127.0.0.1' || substr($_SERVER['HTTP_HOST'], 0, 5) == 'local'){
 	include_once('config.local.php');
-}//if
-
-?>
+}
