@@ -249,9 +249,13 @@
         foreach($data as $name => $value) {
         
             if($name=='datepicker') {
-                $value = explode('.', $value);
-                $value = mktime(0, 0, 0, $value[1], $value[0], $value[2]);
-                $name = 'buydate';
+                if ($value == 'nicht definiert') {
+                	$value = 0;
+                } else {
+                	$value = explode('.', $value);
+                	$value = mktime(0, 0, 0, $value[1], $value[0], $value[2]);
+                	$name = 'buydate';
+            	}
             }
         
             $query .= '

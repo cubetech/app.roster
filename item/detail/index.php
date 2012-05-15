@@ -133,7 +133,7 @@
     	    <h2>Anschaffung</h2>
 
             <dl>
-                <dt>Datum</dt><dd><?php print date('d.m.Y', $item['buydate'])?></dd>
+                <dt>Datum</dt><dd><?php $item['buydate'] != 0 ? print(date('d.m.Y', $item['buydate'])) : print("<i>nicht definiert</i>"); ?></dd>
                 <dt>Preis</dt><dd>CHF <?php print $item['buyprice']?></dd>
                 <dt>Zustand</dt><dd><?php print $item['buycondition']?></dd>
                 <dt>Kaufort</dt><dd><?php print $item['buyplace']?></dd>

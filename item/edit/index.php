@@ -99,7 +99,7 @@
                     <h2>Anschaffung</h2>
                 	    <br />
                 	    
-                	    <label for="datepicker">Datum</label><input id="datepicker" name="data[datepicker]" type="text" value="<?php print date('d.m.Y', $item['buydate'])?>" />
+                	    <label for="datepicker">Datum</label><input id="datepicker" name="data[datepicker]" type="text" value="<?php $item['buydate'] != 0 ? print(date('d.m.Y', $item['buydate'])) : print("nicht definiert"); ?>">
                 	    <label for="price">Preis</label>
                 	    <div class="input-prepend">
                 	                    <span class="add-on span3" style="margin-left: 0;">CHF</span>
