@@ -190,19 +190,19 @@
                 
                     foreach($history as $h) {
     	          
-                        echo '
-                                <tr id="'.$h['pid'].'">
-                                    <td>'.$h['pid'].'</td>
-                                    <td>'.$h['name'].'</td>
-                                    <td>'.$h['customer'].'</td>
-                                    <td>'.$h['person'].'</td>
-                                    <td>'.date('d.m.Y', $h['startdate']).' - '.date('d.m.Y', $h['duedate']).'</td>
+                        ?>
+                                <tr id="<?php echo $h['pid'] ?>">
+                                    <td><a href="<?php echo dire; ?>package/detail/?id=<?php echo $h['pid'] ?>"><?php echo $h['pid'] ?></a></td>
+                                    <td><?php echo $h['name'] ?></td>
+                                    <td><?php echo $h['customer'] ?></td>
+                                    <td><?php echo $h['person'] ?></td>
+                                    <td><?php echo date('d.m.Y', $h['out_ts']) ?> - <?php print(date('d.m.Y', $h['back_ts'])); ?></td>
                                 </tr>
-                            ';
     	          
+				<?php 
     	          }
     	          
-    	      ?>
+    	      	?>
     	      
     	      </tbody>
     	      </table>

@@ -8,8 +8,10 @@
     $query = mysql_query('SELECT i.*, 
                                  c.name AS categoryname,
                                  b.barcode as fullbarcode,
+                                 b.id as barcode_id,
                                  s.status as statusname,
                                  pi.package_id,
+                                 pi.id AS piid,
                                  p.customer,
                                  p.person
                             FROM item i 
@@ -74,7 +76,7 @@
                     <td><a href="'.dire.'package/detail/?id='.$i['package_id'].'">'.$i['customer'].', '.$i['person'].'</a></td>
                     <td>' . $i['statusname'] . '</td>
                     <td>' . 
-                    gen_right_btn('', 'javascript:if(confirm(\'Sind Sie sicher?\')) { window.location = \'./return.php?id=' . $i['id'] . '\'; }', 'icon-refresh icon-white', 'btn btn-mini btn-warning" id="'.$i['id'].'', 'Artikel zur&uuml;ckbuchen', false) .
+                    gen_right_btn('', 'javascript:if(confirm(\'Sind Sie sicher?\')) { window.location = \'./return.php?id=' . $i['barcode_id'] . '&piid='.$i['piid'].'\'; }', 'icon-refresh icon-white', 'btn btn-mini btn-warning" id="'.$i['id'].'', 'Artikel zur&uuml;ckbuchen', false) .
                     '</td>
                 </tr>
             ';

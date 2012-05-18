@@ -56,7 +56,7 @@
                         <br />
                 	    
                 	    <label for="name">Name des Pakets</label><input id="packagename" name="data[packagename]" type="text" value="<?php print $package['name']?>" class="required" minlength="2" />
-                	    <label for="datepicker">R&uuml;ckgabedatum (voraussichtlich)</label><input id="datepicker" name="data[datepicker]" type="text" value="<?php print date('d.m.Y', $package['duedate'])?>" />
+                	    <label for="datepicker">R&uuml;ckgabedatum (voraussichtlich)</label><input id="datepicker" name="data[datepicker]" type="text" value="<?php $package['duedate'] != 0 ? print(date('d.m.Y', $package['duedate'])) : print("unbefristet"); ?>" />
                         <label for="name">Status</label>
                         <select name="data[status]">
                             <?php
