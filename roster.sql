@@ -220,7 +220,9 @@ CREATE TABLE `packageitem` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `package_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
+  `out_ts` int(11) NOT NULL DEFAULT '0',
   `back` int(1) NOT NULL DEFAULT '0',
+  `back_ts` int(11) NOT NULL DEFAULT '0'
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
