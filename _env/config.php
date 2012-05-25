@@ -22,9 +22,11 @@ $cfg = array(
             'path'=>"_style",
         ),
         'auth'=>array(
+            'user'=>getenv('LAGER_USER'),
+            'pass'=>getenv('LAGER_PASS'),
             'timeout'=>60*60*24*30,
             'utimeout'=>60*60,
-            'cookietimeout'=>60*60*24*30,
+            'cookietimeout'=>60*60*24*30  
         ),
         'mail'=>array(
         	'from'=>"roster",
@@ -48,4 +50,8 @@ $cfg = array(
 //Include local config if necessary
 if($_SERVER['HTTP_HOST'] == '127.0.0.1' || substr($_SERVER['HTTP_HOST'], 0, 5) == 'local'){
 	include_once('config.local.php');
+	
+	/* override auth-vars for local testing */
+	$cfg['auth']['user'] = 'user'; 
+	$cfg['auth']['pass'] = 'pass';
 }
