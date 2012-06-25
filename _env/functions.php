@@ -251,6 +251,7 @@
             if($name=='datepicker') {
                 if ($value == 'nicht definiert') {
                 	$value = 0;
+	                $name = 'buydate';
                 } else {
                 	$value = explode('.', $value);
                 	$value = mktime(0, 0, 0, $value[1], $value[0], $value[2]);
