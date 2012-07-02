@@ -87,7 +87,14 @@
             </tbody>
         </table>
         ';
-      
-    write_footer();
+	?>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#barcode').focus();
+		});</script>
+
+<?php
+	write_footer();
     
 ?>
