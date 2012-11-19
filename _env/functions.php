@@ -218,7 +218,7 @@
         
             if($name=='datepicker') {
                 $value = explode('.', $value);
-                $value = mktime(0, 0, 0, $value[1], $value[0], $value[0]);
+                $value = mktime(0, 0, 0, $value[1], $value[0], $value[2]);
                 $name = 'buydate';
             }
         
@@ -249,13 +249,18 @@
         foreach($data as $name => $value) {
         
             if($name=='datepicker') {
-                $value = explode('.', $value);
-                $value = mktime(0, 0, 0, $value[1], $value[0], $value[0]);
-                $name = 'buydate';
+                if ($value == 'nicht definiert') {
+                	$value = 0;
+	                $name = 'buydate';
+                } else {
+                	$value = explode('.', $value);
+                	$value = mktime(0, 0, 0, $value[1], $value[0], $value[2]);
+                	$name = 'buydate';
+            	}
             }
         
             $query .= '
-            '.$name.'="'.$value.'",';
+            '.$name.'="'.mysql_real_escape_string($value).'",';
         }
                 
         if(substr($query, -1, 1)==',') {

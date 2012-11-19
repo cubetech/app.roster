@@ -3,13 +3,15 @@
     error_reporting(E_ALL);
     ini_set('error_log',dire.'_env/error.txt');
     ini_set('log_errors',true);
-    setlocale(LC_TIME, "de_CH");
+    setlocale(LC_TIME, "de_CH");       
     session_start();
-
     include(dire.'_env/class.session.php');
     include(dire.'_env/config.php');
+
+    require_once(dire . '_env/access.php');
+
     include(dire.'_env/functions.php');
-    include(dire.'_env/func_auth.php');
+    include(dire.'_env/func_auth.php');     
     include(dire.'_env/func_header.php');
     include(dire.'_env/func_message.php');
     include(dire.'_env/func_mysql.php');

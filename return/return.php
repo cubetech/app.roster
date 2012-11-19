@@ -6,6 +6,7 @@
     $code = vGET('barcode', true, 'str');
     $id = vGET('id');
     $pid = vGET('pid', true, 'str');
+    $piid = vGET('piid', true, 'str');
     
     if(isset($code) && $code!='') {
         $query = mysql_query('SELECT * FROM `barcode` WHERE `barcode` = "'.$code.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
@@ -28,7 +29,7 @@
     if($packageitem) {
     
        mysql_query('UPDATE `item` SET `status`=1 WHERE `id`="'.$item['id'].'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
-       mysql_query('UPDATE `packageitem` SET `back`="1" WHERE `package_id`="'.$packageitem['package_id'].'" AND `item_id`="'.$item['id'].'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+       mysql_query('UPDATE `packageitem` SET `back`="1", `back_ts` = UNIX_TIMESTAMP() WHERE `package_id`="'.$packageitem['package_id'].'" AND `item_id`="'.$item['id'].'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
 
         $pkgs = array();
         $query = mysql_query('SELECT * FROM `packageitem` WHERE `package_id`="'.$packageitem['package_id'].'" AND `back`="0"') or sqlError(__FILE__,__LINE__,__FUNCTION__);

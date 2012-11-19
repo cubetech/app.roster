@@ -171,9 +171,9 @@ CREATE TABLE `item` (
   `category` int(10) NOT NULL,
   `name` varchar(255) NOT NULL,
   `buydate` int(10) NOT NULL,
-  `buycondition` int(10) NOT NULL,
-  `buyplace` int(10) NOT NULL,
-  `buyprice` float NOT NULL,
+  `buycondition` varchar(255) NOT NULL,
+  `buyplace` varchar(255) NOT NULL,
+  `buyprice` float (9,2) NOT NULL,
   `image` varchar(255) NOT NULL,
   `comments` text NOT NULL,
   `delete` int(1) NOT NULL DEFAULT '0',
@@ -220,7 +220,9 @@ CREATE TABLE `packageitem` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `package_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
+  `out_ts` int(11) NOT NULL DEFAULT '0',
   `back` int(1) NOT NULL DEFAULT '0',
+  `back_ts` int(11) NOT NULL DEFAULT '0'
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 

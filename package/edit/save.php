@@ -6,14 +6,20 @@
     $data = vGET('data');
     $data['date'] = explode('.', $data['datepicker']);
     $items = vGET('item', true, 'str');
+  
+    if ($data['datepicker'] == 0 || $data['datepicker'] == 'unbefristet') {
+    	$data['date'] = 0;
+    } else {
+    	$data['date'] = mktime(0,0,0,$data['date'][1],$data['date'][0],$data['date'][2]);	
+    }
+
     $query = mysql_query('UPDATE `package` SET 
                                     `customer`="'.$data['customer'].'",
                                     `person`="'.$data['person'].'",
                                     `name`="'.$data['packagename'].'",
-                                    `duedate`="'.mktime(0,0,0,$data['date'][1],$data['date'][0],$data['date'][2]).'",
+                                    `duedate`="'. $data['date'].'",
                                     `status`="'.$data['status'].'"
                                     WHERE `id`="'.$data['id'].'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
-
     $package_id = intval($data['id']);
 
     if(@is_array($items)) {
@@ -24,7 +30,7 @@
             $packageitem = mysql_fetch_array($query);
             
             if(!is_array($packageitem)) {
-                $query = mysql_query('INSERT INTO `packageitem` (package_id, item_id) VALUES ("'.$package_id.'", "'.$i.'")') or sqlError(__FILE__,__LINE__,__FUNCTION__);
+                $query = mysql_query('INSERT INTO `packageitem` (package_id, item_id, out_ts) VALUES ("'.$package_id.'", "'.$i.'", UNIX_TIMESTAMP())') or sqlError(__FILE__,__LINE__,__FUNCTION__);
                 $query = mysql_query('UPDATE `item` SET status="5" WHERE `id`="'.$i.'"') or sqlError(__FILE__,__LINE__,__FUNCTION__);
             }
             

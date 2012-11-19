@@ -55,6 +55,7 @@
     <?php
         
     foreach($items as $i) {
+
     
         if($i['delete']==1) {
             $i['statusname'] = 'Gel&ouml;scht';
@@ -85,12 +86,13 @@
                     <td>'.$i['id'].'</td>
                     <td><a href="'.dire.'barcode/detail/?id='.$i['barcode'].'">'.$i['fullbarcode'].'</a></td>
                     <td>';
-        for($i=0; $i<count($ci); $i++) {
-            echo $ci[$i]['name'];
+        for($a=0; $a<count($ci); $a++) {
+            echo $ci[$a]['name'];
             if($i<(count($ci)-1)) {
                 echo ', ';
             }
         }
+        
         echo '      </td>
                     <td><a href="'.dire.'item/detail/?id='.$i['id'].'">'.$i['name'].'</a></td>
                     <td>' . $status . '</td>

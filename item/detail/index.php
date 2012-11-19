@@ -93,7 +93,7 @@
                 <li>
                 <?php
                     if(isset($item['imgname']) && $item['imgname']!='') {
-                        echo '<img class="preview" src="'.dire.'_image/item/'.$item['imgname'].'" alt="'.$item['imgname'].'" />';
+                        echo '<a href="'. dire. '_image/item/'. $item["imgname"].'" target="_blank"><img class="preview" src="'.dire.'_image/item/'.$item['imgname'].'" alt="'.$item['imgname']. '" /></a>';
                     } else {
                         echo '<i>Kein Bild vorhanden</i>';
                     }
@@ -115,7 +115,7 @@
     	    
     	    <dl>
     	        <dt>Name</dt><dd><?php print $item['name']?></dd>
-    	        <dt>Beschreibung</dt><dd><?php print $item['comments']?></dd>
+    	        <dt>Beschreibung</dt><dd><?php print preg_replace("/\\r\\n/", "</br >",$item['comments'])?></dd>
     	        <dt>Status</dt><dd><?php print $item['statusname']?>
     	        <?php
     	        
@@ -133,7 +133,7 @@
     	    <h2>Anschaffung</h2>
 
             <dl>
-                <dt>Datum</dt><dd><?php print date('d.m.Y', $item['buydate'])?></dd>
+                <dt>Datum</dt><dd><?php $item['buydate'] != 0 ? print(date('d.m.Y', $item['buydate'])) : print("<i>nicht definiert</i>"); ?></dd>
                 <dt>Preis</dt><dd>CHF <?php print $item['buyprice']?></dd>
                 <dt>Zustand</dt><dd><?php print $item['buycondition']?></dd>
                 <dt>Kaufort</dt><dd><?php print $item['buyplace']?></dd>
@@ -190,19 +190,19 @@
                 
                     foreach($history as $h) {
     	          
-                        echo '
-                                <tr id="'.$h['pid'].'">
-                                    <td>'.$h['pid'].'</td>
-                                    <td>'.$h['name'].'</td>
-                                    <td>'.$h['customer'].'</td>
-                                    <td>'.$h['person'].'</td>
-                                    <td>'.date('d.m.Y', $h['startdate']).' - '.date('d.m.Y', $h['duedate']).'</td>
+                        ?>
+                                <tr id="<?php echo $h['pid'] ?>">
+                                    <td><a href="<?php echo dire; ?>package/detail/?id=<?php echo $h['pid'] ?>"><?php echo $h['pid'] ?></a></td>
+                                    <td><?php echo $h['name'] ?></td>
+                                    <td><?php echo $h['customer'] ?></td>
+                                    <td><?php echo $h['person'] ?></td>
+                                    <td><?php echo date('d.m.Y', $h['out_ts']) ?> - <?php print(date('d.m.Y', $h['back_ts'])); ?></td>
                                 </tr>
-                            ';
     	          
+				<?php 
     	          }
     	          
-    	      ?>
+    	      	?>
     	      
     	      </tbody>
     	      </table>
